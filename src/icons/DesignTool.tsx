@@ -1,0 +1,74 @@
+import React from "react";
+
+export default function DesignTool({ className }: { className?: string }) {
+  return (
+    <svg
+      width="116"
+      height="116"
+      viewBox="0 0 116 116"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <g clipPath="url(#clip0_815_25086)">
+        <path
+          d="M53.66 73.5187C53.66 76.5568 52.5 79.4568 50.3181 81.6663C48.6333 83.3511 46.341 84.5111 43.6067 84.8701L36.8124 85.6159C33.1114 86.0301 29.9352 82.8816 30.3772 79.1254L31.1229 72.3311C31.7857 66.2825 36.84 62.4159 42.1981 62.3054C42.7505 62.2778 43.3305 62.3054 43.8552 62.333C46.2029 62.6368 48.4952 63.714 50.3733 65.6197C52.2238 67.4701 53.2733 69.6244 53.5771 71.9444C53.6048 72.4692 53.66 72.994 53.66 73.5187Z"
+          stroke="currentColor"
+          strokeWidth="4.14286"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <g opacity="0.4">
+          <path
+            d="M85.0802 35.7331C80.8268 46.3388 70.1659 60.756 61.2449 67.9093L55.804 72.2731C55.1135 72.7703 54.423 73.2122 53.6497 73.516C53.6497 73.0188 53.6221 72.4665 53.5392 71.9417C53.2354 69.6217 52.1859 67.4674 50.3354 65.6169C48.4573 63.7388 46.1649 62.6341 43.8173 62.3303C43.2649 62.3026 42.7125 62.2474 42.1602 62.3027C42.464 61.4465 42.9335 60.6455 43.5135 59.9827L47.8221 54.5417C54.9478 45.6207 69.4202 34.9046 79.9982 30.6788C81.6278 30.0712 83.2021 30.5131 84.1963 31.535C85.2459 32.5569 85.743 34.1312 85.0802 35.7331Z"
+            stroke="currentColor"
+            strokeWidth="4.14286"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M64.1771 64.8167C64.1771 57.6082 58.3219 51.7529 51.1133 51.7529"
+            stroke="currentColor"
+            strokeWidth="4.14286"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </g>
+        <path
+          d="M80.4214 60.0176L82.4652 62.0338C86.5804 66.149 86.5804 70.209 82.4652 74.3242L74.2899 82.4995C70.2299 86.5595 66.1147 86.5595 62.0547 82.4995"
+          stroke="currentColor"
+          strokeWidth="4.14286"
+          strokeLinecap="round"
+        />
+        <path
+          d="M33.4473 53.8808C29.3873 49.7656 29.3873 45.7056 33.4473 41.5904L41.6226 33.4151C45.6826 29.3551 49.7978 29.3551 53.8578 33.4151L55.9016 35.4589"
+          stroke="currentColor"
+          strokeWidth="4.14286"
+          strokeLinecap="round"
+        />
+        <path
+          d="M55.9183 35.4946L45.6992 45.7137"
+          stroke="currentColor"
+          strokeWidth="4.14286"
+          strokeLinecap="round"
+        />
+        <path
+          d="M80.4135 60.0176L72.2383 68.1652"
+          stroke="currentColor"
+          strokeWidth="4.14286"
+          strokeLinecap="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_815_25086">
+          <rect
+            width="66.2857"
+            height="66.2857"
+            fill="white"
+            transform="translate(24.8555 24.8569)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
