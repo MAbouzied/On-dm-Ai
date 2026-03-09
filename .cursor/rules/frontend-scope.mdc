@@ -1,0 +1,20 @@
+---
+description: When working in frontend/, delegate to ondm-frontend-developer subagent
+globs: frontend/**/*
+alwaysApply: false
+---
+
+# Frontend Scope
+
+When the user is working on files in **frontend/** (Next.js, React, components, i18n, etc.):
+
+- Delegate to the **ondm-frontend-developer** subagent
+- Invoke with: `/ondm-frontend-developer` or "Use the ondm-frontend-developer to..."
+
+The frontend developer works exclusively in `frontend/` and handles:
+- Next.js pages and App Router
+- React components
+- Internationalization (EN/AR)
+- Tailwind styling
+- Dashboard UI
+- API consumption

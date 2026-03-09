@@ -1,0 +1,17 @@
+---
+description: Agent-to-folder mapping for ON-DM project
+alwaysApply: true
+---
+
+# ON-DM Agent Delegation
+
+When working on this project, delegate to the appropriate subagent based on scope:
+
+| Task / Folder | Subagent | Invoke |
+|---------------|----------|--------|
+| `backend/` — API, Prisma, auth, DB | **ondm-backend-developer** | `/ondm-backend-developer` |
+| `frontend/` — Next.js, React, UI, i18n | **ondm-frontend-developer** | `/ondm-frontend-developer` |
+| Testing, verification, E2E, QA | **ondm-qa-engineer** | `/ondm-qa-engineer` |
+| Strategy, architecture, no code | **dr-sayed-on-dm-orchestrator** | `/dr-sayed-on-dm-orchestrator` |
+
+Each developer agent works ONLY in their folder. QA works across the full repo.

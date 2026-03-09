@@ -1,0 +1,19 @@
+---
+description: When testing or verifying, delegate to ondm-qa-engineer subagent
+globs: "**/*.test.*,**/*.spec.*,**/__tests__/**"
+alwaysApply: false
+---
+
+# QA Scope
+
+When the user asks to test, verify, validate, or check implementations:
+
+- Delegate to the **ondm-qa-engineer** subagent
+- Invoke with: `/ondm-qa-engineer` or "Use the ondm-qa-engineer to..."
+
+The QA engineer works across the full project and handles:
+- E2E testing
+- API testing
+- UI/UX verification
+- Accessibility checks
+- Bug reproduction

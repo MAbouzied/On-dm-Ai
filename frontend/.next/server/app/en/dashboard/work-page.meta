@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/[locale]/layout,_N_T_/[locale]/dashboard/layout,_N_T_/[locale]/dashboard/work-page/layout,_N_T_/[locale]/dashboard/work-page/page,_N_T_/en/dashboard/work-page"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/$d$locale/dashboard/work-page/__PAGE__",
+    "/$d$locale/dashboard/work-page",
+    "/$d$locale/dashboard",
+    "/$d$locale",
+    "/_index",
+    "/_head"
+  ]
+}

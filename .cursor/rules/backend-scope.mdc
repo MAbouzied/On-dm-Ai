@@ -1,0 +1,19 @@
+---
+description: When working in backend/, delegate to ondm-backend-developer subagent
+globs: backend/**/*
+alwaysApply: false
+---
+
+# Backend Scope
+
+When the user is working on files in **backend/** (API, Prisma, Express, auth, etc.):
+
+- Delegate to the **ondm-backend-developer** subagent
+- Invoke with: `/ondm-backend-developer` or "Use the ondm-backend-developer to..."
+
+The backend developer works exclusively in `backend/` and handles:
+- API routes and controllers
+- Prisma schema and migrations
+- Authentication
+- Database logic
+- Contact form backend
