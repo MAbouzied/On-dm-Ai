@@ -2,20 +2,23 @@
 
 ## The Problem
 
-Hostinger's **Next.js** preset runs `next start`, which only serves the frontend. Our app needs `npm start`, which runs the combined Express + Next.js server (API + frontend).
+Hostinger's **Next.js** preset runs `next start`, which only serves the frontend. Our app needs the combined Express + Next.js server (API + frontend).
 
-## The Fix (2 minutes)
+## Code Fix (Already Done)
 
-1. **Hostinger hPanel** → your Node.js app → **Settings & Redeploy**
-2. Find **Start command** (or **Run command**)
-3. Set it to exactly: **`npm start`**
-4. Click **Redeploy**
+The frontend's `start` script now runs our combined server. If Hostinger runs `npm start` from the frontend context, it will work.
 
-## If You Don't See "Start command"
+## Manual Fix (If Still 403)
 
-- Look under **Build and output settings**
-- Or **Build configuration** → **Advanced**
-- The field might be called **Run command** or **Start command**
+1. **Hostinger** → **Settings & Redeploy**
+2. **Scroll down** – find **Start command** (or **Run command**)
+3. Set it to: **`npm start`**
+4. Or try: **`npm run start -- -p $PORT`**
+5. Click **Redeploy**
+
+## Alternative: Change Framework Preset
+
+Change **Framework preset** from **Next.js** to **Node** or **Express** – Hostinger may then use `npm start` by default.
 
 ## Verify
 
