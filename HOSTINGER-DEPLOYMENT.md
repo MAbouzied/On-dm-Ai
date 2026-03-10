@@ -1,5 +1,15 @@
 # Hostinger Deployment Checklist
 
+## Database Setup (Automatic)
+
+When the app starts on Hostinger, it automatically:
+1. **Creates/updates tables** (Prisma `db push`)
+2. **Seeds the database** (admin, services, config, etc.)
+
+No manual SQL needed. The app connects to MySQL from the same server, so it works.
+
+**Fallback:** If you need to run setup manually (e.g. in phpMyAdmin), use `backend/prisma/hostinger-setup.sql`.
+
 ## Critical: Fix These First
 
 ### 1. DB_PORT must be 3306 (not 4000)

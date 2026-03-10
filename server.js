@@ -10,5 +10,5 @@ const path = require("path");
 const root = path.resolve(__dirname);
 process.chdir(root);
 
-execSync("node scripts/db-push.js", { stdio: "inherit" });
+execSync("node scripts/db-setup.js", { stdio: "inherit" });
 execSync("node -r dotenv/config backend/dist/server.js", { stdio: "inherit" });
