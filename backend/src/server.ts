@@ -72,7 +72,7 @@ server.get("/api/health", async (req, res) => {
       status: "degraded",
       db: "disconnected",
       error: err.message,
-      hint: "Set DB_HOST=127.0.0.1 (or MYSQL_HOST), DB_USER/DB_NAME with Hostinger prefix. See HOSTINGER-MYSQL.md",
+      hint: "Set DB_HOST=localhost (or MYSQL_HOST), DB_USER/DB_NAME with Hostinger prefix. See HOSTINGER-MYSQL.md",
     });
   }
 });
@@ -87,7 +87,7 @@ server.get("/api/db-status", async (_, res) => {
     res.status(500).json({
       ok: false,
       error: err.message,
-      hint: "Set DB_HOST=127.0.0.1 (or MYSQL_HOST), DB_USER/DB_NAME with Hostinger prefix. See HOSTINGER-MYSQL.md",
+      hint: "Set DB_HOST=localhost (or MYSQL_HOST), DB_USER/DB_NAME with Hostinger prefix. See HOSTINGER-MYSQL.md",
     });
   }
 });

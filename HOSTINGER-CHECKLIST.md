@@ -5,7 +5,7 @@
 503 occurs when the Node.js process **crashes on startup** or **never binds to the correct port**. Common causes for this project:
 
 1. **DB connection blocking startup** – Fixed: db-setup runs in background; server starts immediately.
-2. **Wrong DB host** – Hostinger MySQL is at `127.0.0.1:3306`, not a remote IP.
+2. **Wrong DB host** – Hostinger MySQL is at `localhost:3306`, not a remote IP.
 3. **Missing/wrong env vars** – DB_USER and DB_NAME must include Hostinger prefix (e.g. `u123456789_ondm`).
 4. **Next.js prepare() failure** – Wrong paths or missing `frontend/.next` after build.
 5. **JWT_SECRET** – Missing in production (app still runs but logs a warning).
@@ -20,7 +20,7 @@ Set these in **Hostinger → Your App → Environment Variables**:
 |----------|-------|----------|
 | `NODE_ENV` | `production` | Yes |
 | `PORT` | Leave empty (Hostinger sets it) or `4000` | Hostinger usually sets |
-| `DB_HOST` | `127.0.0.1` | Yes |
+| `DB_HOST` | `localhost` | Yes |
 | `DB_PORT` | `3306` | Yes |
 | `DB_USER` | Full username from Hostinger (e.g. `u140527120_ondm`) | Yes |
 | `DB_PASSWORD` | Your MySQL password | Yes |
@@ -43,7 +43,7 @@ Set these in **Hostinger → Your App → Environment Variables**:
 2. **Set environment variables**
    - Hostinger → Your App → Environment Variables
    - Add every variable from the table above
-   - Ensure `DB_HOST=127.0.0.1` (not an IP, not `localhost` if Hostinger expects `127.0.0.1`)
+   - Ensure `DB_HOST=localhost` (Hostinger MySQL is on the same server)
 
 3. **Verify hostinger.json**
    - `buildCommand`: `npm run build`
@@ -75,7 +75,7 @@ Set these in **Hostinger → Your App → Environment Variables**:
    GET https://yourdomain.com/api/health?db=1
    ```
    Expected: `{"status":"ok","db":"connected"}`  
-   If `{"status":"degraded","db":"disconnected"}`, fix DB env vars and redeploy.
+   If `{"status":"degraded","db":"disconnected"}`, fix DB env vars (DB_HOST=localhost) and redeploy.
 
 3. **DB status**
    ```

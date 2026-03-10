@@ -23,7 +23,7 @@ In **Hostinger** → **Environment Variables**, ensure ALL are set:
 |----------|-------|
 | `PORT` | `4000` (or leave for Hostinger to set) |
 | `NODE_ENV` | `production` |
-| `DB_HOST` | `127.0.0.1` or `localhost` |
+| `DB_HOST` | `localhost` |
 | `DB_PORT` | `3306` |
 | `DB_USER` | `u140527120_ondm` |
 | `DB_PASSWORD` | `1234LocalA` |

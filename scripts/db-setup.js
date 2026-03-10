@@ -20,7 +20,7 @@ if (!process.env.DATABASE_URL) {
   }
   const host = process.env.MYSQL_HOST || process.env.DB_HOST || "localhost";
   if (host !== "localhost" && host !== "127.0.0.1") {
-    console.warn("[db-setup] DB_HOST is", host, "- Hostinger MySQL usually needs DB_HOST=127.0.0.1. See HOSTINGER-MYSQL.md");
+    console.warn("[db-setup] DB_HOST is", host, "- Hostinger MySQL usually needs DB_HOST=localhost. See HOSTINGER-MYSQL.md");
   }
   process.env.DATABASE_URL = buildDatabaseUrl(undefined);
 }
@@ -37,9 +37,9 @@ try {
 } catch (e) {
   const host = process.env.MYSQL_HOST || process.env.DB_HOST;
   if (host && host !== "localhost" && host !== "127.0.0.1") {
-    console.log("[db-setup] Retrying with DB_HOST=127.0.0.1...");
-    process.env.DB_HOST = "127.0.0.1";
-    process.env.MYSQL_HOST = "127.0.0.1";
+    console.log("[db-setup] Retrying with DB_HOST=localhost...");
+    process.env.DB_HOST = "localhost";
+    process.env.MYSQL_HOST = "localhost";
     delete process.env.DATABASE_URL;
     try {
       require("child_process").execSync("node scripts/db-connect-test.js", {
@@ -48,12 +48,12 @@ try {
         env: { ...process.env },
       });
       testOk = true;
-      process.env.DB_HOST = "127.0.0.1";
-      process.env.MYSQL_HOST = "127.0.0.1";
+      process.env.DB_HOST = "localhost";
+      process.env.MYSQL_HOST = "localhost";
       const u = process.env.MYSQL_USER || process.env.DB_USER || "root";
       const pw = process.env.MYSQL_PASSWORD || process.env.DB_PASSWORD || "";
       const n = process.env.MYSQL_DATABASE || process.env.DB_NAME || "ondm";
-      process.env.DATABASE_URL = buildDatabaseUrl("127.0.0.1");
+      process.env.DATABASE_URL = buildDatabaseUrl("localhost");
     } catch (e2) {
       // fall through
     }
@@ -61,7 +61,7 @@ try {
 }
 if (!testOk) {
   console.error("[db-setup] DB connection failed. Server will start anyway; API may fail until DB is reachable.");
-  console.error("[db-setup] Set DB_HOST=127.0.0.1 (or MYSQL_HOST), use full DB_USER/DB_NAME with Hostinger prefix. See HOSTINGER-MYSQL.md");
+  console.error("[db-setup] Set DB_HOST=localhost (or MYSQL_HOST), use full DB_USER/DB_NAME with Hostinger prefix. See HOSTINGER-MYSQL.md");
   process.exit(0); // Don't crash - server already starting
 }
 
