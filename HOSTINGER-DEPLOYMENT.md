@@ -11,11 +11,9 @@
 DB_PORT=3306
 ```
 
-### 2. Add NODE_ENV
+### 2. NODE_ENV=production
 
-```
-NODE_ENV=production
-```
+With `NODE_ENV=production`, npm skips `devDependencies`. The project has been updated so all build-time deps (@types/*, prisma, typescript) are in `dependencies`, so the build works with NODE_ENV=production.
 
 ### 3. Verify Start Command
 
