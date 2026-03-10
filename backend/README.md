@@ -11,20 +11,28 @@ ON-DM/backend/
 ## Tech Stack
 
 - Node.js + Express
-- Prisma + SQLite (dev) / PostgreSQL (prod)
+- Prisma + MySQL
 - TypeScript
 - JWT for auth
 - Zod for validation
 
 ## Setup
 
-```bash
-cd backend
-pnpm install
-cp .env.example .env
-pnpm db:push
-pnpm dev
-```
+1. **Install MySQL** - See [MYSQL-SETUP.md](./MYSQL-SETUP.md) for Docker, XAMPP, or standalone options.
+
+2. **Configure** - Copy `.env.example` to `.env` and set `DATABASE_URL`:
+   ```
+   DATABASE_URL="mysql://USER:PASSWORD@localhost:3306/ondm"
+   ```
+
+3. **Migrate and seed**:
+   ```bash
+   cd backend
+   pnpm install
+   pnpm prisma migrate dev --name init_mysql
+   pnpm db:seed
+   pnpm dev
+   ```
 
 ## API Base URL
 

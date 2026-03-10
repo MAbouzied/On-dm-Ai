@@ -90,11 +90,11 @@ model Project {
   descriptionEn String
   descriptionAr String
   imageUrl      String?
-  imageUrls     String?  // JSON array: ["url1","url2"]
-  tags          String   // JSON: [{"label":"Design","color":"purple"}]
+  imageUrls     String?   // JSON array: ["url1","url2"]
+  tags          String    // JSON: [{"label":"Design","color":"purple"}]
   liveUrl       String?
-  contentEn     String   @default("")
-  contentAr     String   @default("")
+  contentEn     String    @default("")
+  contentAr     String    @default("")
   published     Boolean  @default(false)
   sortOrder     Int      @default(0)
   createdAt     DateTime @default(now())

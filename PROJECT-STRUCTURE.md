@@ -132,7 +132,7 @@ From project root (`ON-DM/`):
 ### Backend (`backend/.env`)
 
 ```
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="mysql://USER:PASSWORD@localhost:3306/ondm"
 PORT=4000
 FRONTEND_URL="http://localhost:3000"
 JWT_SECRET="..."

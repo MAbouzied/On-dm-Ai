@@ -16,5 +16,17 @@
     "files": [
       "static/chunks/_app-pages-browser_node_modules_pnpm_next_16_1_1__babel_core_7_2_39b5f7bf9254f45631682e0d132e-294a4a.js"
     ]
+  },
+  "components\\contact\\contact-map.tsx -> leaflet": {
+    "id": "components\\contact\\contact-map.tsx -> leaflet",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_pnpm_leaflet_1_9_4_node_modules_leaflet_dist_leaflet-src_js.js"
+    ]
+  },
+  "components\\contact\\contact-map.tsx -> react-leaflet": {
+    "id": "components\\contact\\contact-map.tsx -> react-leaflet",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_pnpm_react-leaflet_5_0_0_leaflet_a4aa88acb150c9aa45476693c130-4dc9fe.js"
+    ]
   }
 }
