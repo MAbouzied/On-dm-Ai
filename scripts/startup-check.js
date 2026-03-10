@@ -22,11 +22,11 @@ add("[startup-check] NODE_ENV: " + (process.env.NODE_ENV || "(not set)"));
 add("[startup-check] PORT: " + (process.env.PORT || "(not set)"));
 
 // DB (mask password)
-const dbHost = process.env.DB_HOST || process.env.DATABASE_URL?.match(/@([^:]+):/)?.[1] || "(not set)";
-const dbPort = process.env.DB_PORT || "3306";
+const dbHost = process.env.MYSQL_HOST || process.env.DB_HOST || process.env.DATABASE_URL?.match(/@([^:]+):/)?.[1] || "(not set)";
+const dbPort = process.env.MYSQL_PORT || process.env.DB_PORT || "3306";
 add("[startup-check] DB_HOST: " + dbHost);
 add("[startup-check] DB_PORT: " + dbPort);
-add("[startup-check] DB_NAME: " + (process.env.DB_NAME || "(not set)"));
+add("[startup-check] DB_NAME: " + (process.env.MYSQL_DATABASE || process.env.DB_NAME || "(not set)"));
 
 // Paths
 const backendDist = path.join(root, "backend", "dist", "server.js");

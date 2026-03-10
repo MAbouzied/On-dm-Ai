@@ -32,7 +32,11 @@ const server = express();
 
 // Ensure uploads directory exists (backend/uploads) - use absolute path since we chdir
 const uploadsDir = path.resolve(__dirname, "..", "uploads");
-fs.mkdirSync(uploadsDir, { recursive: true });
+try {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+} catch (e) {
+  console.warn("[server] Could not create uploads dir:", (e as Error).message);
+}
 
 const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:3000,http://localhost:3001,http://localhost:3002")
   .split(",")
@@ -52,6 +56,27 @@ server.get("/health", (_, res) => {
   res.json({ status: "ok", service: "ondm-combined" });
 });
 
+server.get("/api/health", async (req, res) => {
+  const checkDb = req.query.db === "1" || req.query.db === "true";
+  if (!checkDb) {
+    res.json({ status: "ok", service: "ondm-combined" });
+    return;
+  }
+  try {
+    const { prisma } = await import("./lib/db.js");
+    await prisma.$queryRaw`SELECT 1`;
+    res.json({ status: "ok", db: "connected" });
+  } catch (e: unknown) {
+    const err = e as Error;
+    res.status(503).json({
+      status: "degraded",
+      db: "disconnected",
+      error: err.message,
+      hint: "Set DB_HOST=127.0.0.1 (or MYSQL_HOST), DB_USER/DB_NAME with Hostinger prefix. See HOSTINGER-MYSQL.md",
+    });
+  }
+});
+
 server.get("/api/db-status", async (_, res) => {
   try {
     const { prisma } = await import("./lib/db.js");
@@ -62,7 +87,7 @@ server.get("/api/db-status", async (_, res) => {
     res.status(500).json({
       ok: false,
       error: err.message,
-      hint: "Check DB_HOST=localhost, DB_USER and DB_NAME include Hostinger prefix (e.g. u123_ondm). See HOSTINGER-MYSQL.md",
+      hint: "Set DB_HOST=127.0.0.1 (or MYSQL_HOST), DB_USER/DB_NAME with Hostinger prefix. See HOSTINGER-MYSQL.md",
     });
   }
 });
@@ -97,10 +122,13 @@ server.all("*", (req, res) => handle(req, res));
 nextApp.prepare().then(() => {
   server.listen(PORT, () => {
     console.log(`ON-DM (Frontend + Backend) running on http://localhost:${PORT}`);
-    console.log("Database:", process.env.DATABASE_URL || "file:./dev.db (default)");
+    const dbUrl = process.env.DATABASE_URL;
+    console.log("Database:", dbUrl ? `${dbUrl.split("@")[1] || "(set)"}` : "(not set - check DB_* or MYSQL_* env)");
     console.log("CORS allowed origins:", process.env.FRONTEND_URL || "http://localhost:3000");
   });
 }).catch((err: unknown) => {
-  console.error("Failed to start server:", err);
+  const e = err as Error;
+  console.error("[server] Next.js prepare failed:", e.message || e);
+  console.error("[server] Check: frontend/.next exists, NODE_ENV=production. Stack:", e.stack);
   process.exit(1);
 });

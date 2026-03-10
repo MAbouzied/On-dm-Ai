@@ -2,6 +2,8 @@
 
 503 means the app is **not running** or **crashing on startup**.
 
+**Update:** The server now starts **immediately**; `db-setup` runs in the background so Hostinger won't timeout waiting for DB. If DB setup fails, the app still serves (API may error until DB is reachable).
+
 ## 1. Check Deployment Logs
 
 1. **Hostinger** → your app → **Deployments**
@@ -21,7 +23,7 @@ In **Hostinger** → **Environment Variables**, ensure ALL are set:
 |----------|-------|
 | `PORT` | `4000` (or leave for Hostinger to set) |
 | `NODE_ENV` | `production` |
-| `DB_HOST` | `91.108.101.195` |
+| `DB_HOST` | `127.0.0.1` or `localhost` |
 | `DB_PORT` | `3306` |
 | `DB_USER` | `u140527120_ondm` |
 | `DB_PASSWORD` | `1234LocalA` |

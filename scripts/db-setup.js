@@ -10,22 +10,19 @@ const path = require("path");
 const root = path.resolve(__dirname, "..");
 process.chdir(root);
 
-// Build DATABASE_URL from DB_* if not set
+const { buildDatabaseUrl } = require("./db-env.js");
+
 if (!process.env.DATABASE_URL) {
-  let host = process.env.DB_HOST || "localhost";
-  const port = process.env.DB_PORT || "3306";
+  const port = process.env.MYSQL_PORT || process.env.DB_PORT || "3306";
   if (port === "4000") {
     console.error("ERROR: DB_PORT=4000 is wrong. MySQL uses port 3306. Set DB_PORT=3306 in your environment.");
     process.exit(1);
   }
-  // Hostinger MySQL uses localhost - IP often fails
+  const host = process.env.MYSQL_HOST || process.env.DB_HOST || "localhost";
   if (host !== "localhost" && host !== "127.0.0.1") {
-    console.warn("[db-setup] DB_HOST is", host, "- Hostinger MySQL usually needs DB_HOST=localhost. See HOSTINGER-MYSQL.md");
+    console.warn("[db-setup] DB_HOST is", host, "- Hostinger MySQL usually needs DB_HOST=127.0.0.1. See HOSTINGER-MYSQL.md");
   }
-  const user = process.env.DB_USER || "root";
-  const password = process.env.DB_PASSWORD || "";
-  const name = process.env.DB_NAME || "ondm";
-  process.env.DATABASE_URL = `mysql://${user}:${encodeURIComponent(password)}@${host}:${port}/${name}`;
+  process.env.DATABASE_URL = buildDatabaseUrl(undefined);
 }
 
 // 0. Test connection first (helps debug Hostinger)
@@ -38,9 +35,11 @@ try {
   });
   testOk = true;
 } catch (e) {
-  if (process.env.DB_HOST && process.env.DB_HOST !== "localhost") {
-    console.log("[db-setup] Retrying with DB_HOST=localhost...");
-    process.env.DB_HOST = "localhost";
+  const host = process.env.MYSQL_HOST || process.env.DB_HOST;
+  if (host && host !== "localhost" && host !== "127.0.0.1") {
+    console.log("[db-setup] Retrying with DB_HOST=127.0.0.1...");
+    process.env.DB_HOST = "127.0.0.1";
+    process.env.MYSQL_HOST = "127.0.0.1";
     delete process.env.DATABASE_URL;
     try {
       require("child_process").execSync("node scripts/db-connect-test.js", {
@@ -49,19 +48,21 @@ try {
         env: { ...process.env },
       });
       testOk = true;
-      process.env.DB_HOST = "localhost";
-      const u = process.env.DB_USER || "root";
-      const pw = process.env.DB_PASSWORD || "";
-      const n = process.env.DB_NAME || "ondm";
-      process.env.DATABASE_URL = `mysql://${u}:${encodeURIComponent(pw)}@localhost:${process.env.DB_PORT || "3306"}/${n}`;
+      process.env.DB_HOST = "127.0.0.1";
+      process.env.MYSQL_HOST = "127.0.0.1";
+      const u = process.env.MYSQL_USER || process.env.DB_USER || "root";
+      const pw = process.env.MYSQL_PASSWORD || process.env.DB_PASSWORD || "";
+      const n = process.env.MYSQL_DATABASE || process.env.DB_NAME || "ondm";
+      process.env.DATABASE_URL = buildDatabaseUrl("127.0.0.1");
     } catch (e2) {
       // fall through
     }
   }
 }
 if (!testOk) {
-  console.error("[db-setup] DB connection failed. Set DB_HOST=localhost, use full DB_USER/DB_NAME with Hostinger prefix. See HOSTINGER-MYSQL.md");
-  process.exit(1);
+  console.error("[db-setup] DB connection failed. Server will start anyway; API may fail until DB is reachable.");
+  console.error("[db-setup] Set DB_HOST=127.0.0.1 (or MYSQL_HOST), use full DB_USER/DB_NAME with Hostinger prefix. See HOSTINGER-MYSQL.md");
+  process.exit(0); // Don't crash - server already starting
 }
 
 // 1. Push schema (creates tables)

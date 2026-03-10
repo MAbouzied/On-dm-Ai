@@ -6,14 +6,10 @@
  */
 require("dotenv/config");
 const { PrismaClient } = require("@prisma/client");
+const { buildDatabaseUrl } = require("./db-env.js");
 
 function buildUrl(host) {
-  const h = host;
-  const p = process.env.DB_PORT || "3306";
-  const u = process.env.DB_USER || "root";
-  const pw = process.env.DB_PASSWORD || "";
-  const n = process.env.DB_NAME || "ondm";
-  return `mysql://${u}:${encodeURIComponent(pw)}@${h}:${p}/${n}`;
+  return buildDatabaseUrl(host);
 }
 
 async function tryConnect(url) {
@@ -30,12 +26,14 @@ async function tryConnect(url) {
 }
 
 async function main() {
-  const host = process.env.DB_HOST || "localhost";
+  const host = process.env.MYSQL_HOST || process.env.DB_HOST || "localhost";
   const url1 = process.env.DATABASE_URL || buildUrl(host);
   const url2 = host !== "localhost" ? buildUrl("localhost") : null;
 
   console.log("[db-connect-test] Testing connection...");
-  console.log("[db-connect-test] Host:", host, "| User:", process.env.DB_USER || "root", "| DB:", process.env.DB_NAME || "ondm");
+  const u = process.env.MYSQL_USER || process.env.DB_USER || "root";
+  const n = process.env.MYSQL_DATABASE || process.env.DB_NAME || "ondm";
+  console.log("[db-connect-test] Host:", host, "| User:", u, "| DB:", n);
 
   try {
     await tryConnect(url1);
