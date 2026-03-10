@@ -4,6 +4,21 @@ This guide walks you through diagnosing and fixing the 403 error on Hostinger.
 
 ---
 
+## FIX: Wrong Start Command (Most Common)
+
+**"This Page Does Not Exist" on /health** means Hostinger is running `next start` instead of our combined server.
+
+### Do this now:
+
+1. Go to **Hostinger hPanel** → your Node.js app → **Settings & Redeploy**
+2. Find **Start command** (or **Run command**)
+3. Change it to exactly: **`npm start`**
+4. Click **Redeploy**
+
+Our app uses Express + Next.js in one process. `npm start` runs `node server.js`, which starts the full app. If Hostinger uses `next start`, only the frontend runs and `/health` and `/api/*` return 404.
+
+---
+
 ## Part A: Manual Steps on Hostinger (Do These First)
 
 ### Step 1: Verify Node.js App Type
