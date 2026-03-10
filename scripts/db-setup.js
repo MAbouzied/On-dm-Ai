@@ -12,11 +12,15 @@ process.chdir(root);
 
 // Build DATABASE_URL from DB_* if not set
 if (!process.env.DATABASE_URL) {
-  const host = process.env.DB_HOST || "localhost";
+  let host = process.env.DB_HOST || "localhost";
   const port = process.env.DB_PORT || "3306";
   if (port === "4000") {
     console.error("ERROR: DB_PORT=4000 is wrong. MySQL uses port 3306. Set DB_PORT=3306 in your environment.");
     process.exit(1);
+  }
+  // Hostinger MySQL uses localhost - IP often fails
+  if (host !== "localhost" && host !== "127.0.0.1") {
+    console.warn("[db-setup] DB_HOST is", host, "- Hostinger MySQL usually needs DB_HOST=localhost. See HOSTINGER-MYSQL.md");
   }
   const user = process.env.DB_USER || "root";
   const password = process.env.DB_PASSWORD || "";

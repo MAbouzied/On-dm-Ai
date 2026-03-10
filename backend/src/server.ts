@@ -49,6 +49,21 @@ server.get("/health", (_, res) => {
   res.json({ status: "ok", service: "ondm-combined" });
 });
 
+server.get("/api/db-status", async (_, res) => {
+  try {
+    const { prisma } = await import("./lib/db.js");
+    await prisma.$queryRaw`SELECT 1`;
+    res.json({ ok: true, message: "Database connected" });
+  } catch (e: unknown) {
+    const err = e as Error;
+    res.status(500).json({
+      ok: false,
+      error: err.message,
+      hint: "Check DB_HOST=localhost, DB_USER and DB_NAME include Hostinger prefix (e.g. u123_ondm). See HOSTINGER-MYSQL.md",
+    });
+  }
+});
+
 import authRoutes from "./routes/auth.js";
 import servicesRoutes from "./routes/services.js";
 import projectsRoutes from "./routes/projects.js";

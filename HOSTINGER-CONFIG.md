@@ -33,11 +33,11 @@ Add all of these:
 |-----|-------|
 | `PORT` | `4000` |
 | `NODE_ENV` | `production` |
-| `DB_HOST` | `localhost` or your MySQL host IP |
+| `DB_HOST` | **`localhost`** (Hostinger MySQL uses localhost, not IP – see HOSTINGER-MYSQL.md) |
 | `DB_PORT` | `3306` |
-| `DB_USER` | `ondm` |
+| `DB_USER` | Full username with prefix (e.g. `u123456789_ondm`) from Hostinger panel |
 | `DB_PASSWORD` | your password |
-| `DB_NAME` | `ondm` |
+| `DB_NAME` | Full database name with prefix (e.g. `u123456789_ondm`) from Hostinger panel |
 | `FRONTEND_URL` | `https://your-site.hostingersite.com` |
 | `JWT_SECRET` | random secret string |
 
