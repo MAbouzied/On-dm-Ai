@@ -1,7 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
-
+#!/usr/bin/env node
 if (!process.env.DATABASE_URL) {
   const host = process.env.DB_HOST || "localhost";
   const port = process.env.DB_PORT || "3306";
@@ -10,11 +7,8 @@ if (!process.env.DATABASE_URL) {
   const name = process.env.DB_NAME || "ondm";
   process.env.DATABASE_URL = `mysql://${user}:${encodeURIComponent(password)}@${host}:${port}/${name}`;
 }
-
-export const prisma =
-  globalForPrisma.prisma ||
-  new PrismaClient({
-    log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
-  });
-
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+const { execSync } = require("child_process");
+execSync("npx prisma db push --schema=backend/prisma/schema.prisma", {
+  stdio: "inherit",
+  cwd: process.cwd(),
+});

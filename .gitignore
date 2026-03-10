@@ -20,6 +20,8 @@
 
 # production
 /build
+/backend/dist/
+/frontend/dist/
 
 # misc
 .DS_Store
@@ -33,6 +35,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # backend database
 backend/dev.db
