@@ -16,14 +16,15 @@ This guide helps you deploy the ON-DM Next.js frontend to Hostinger via GitHub.
 
 ## Step 2: Build Settings
 
-Because this is a monorepo (frontend in `frontend/`), configure Hostinger:
+Configure Hostinger (use **npm**, not pnpm):
 
 | Setting | Value |
 |---------|-------|
+| **Package manager** | `npm` |
+| **Node.js version** | `20.x` (required: ≥20.9.0 for Next.js 16) |
 | **Install command** | `npm install` |
-| **Build command** | `npm run build:hostinger` |
+| **Build command** | `npm run build` |
 | **Start command** | `npm run start -- -p $PORT` |
-| **Node.js version** | 18.x or 20.x |
 
 ## Step 3: Environment Variables
 
