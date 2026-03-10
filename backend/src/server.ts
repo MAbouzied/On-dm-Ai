@@ -9,7 +9,10 @@ import next from "next";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const PORT = parseInt(process.env.PORT || "3000", 10);
+// Support -p $PORT (Hostinger: npm run start -- -p $PORT)
+const pIdx = process.argv.indexOf("-p");
+const portArg = pIdx >= 0 ? process.argv[pIdx + 1] : null;
+const PORT = parseInt(portArg || process.env.PORT || "3000", 10);
 const dev = process.env.NODE_ENV !== "production";
 const frontendDir = path.resolve(__dirname, "../../frontend");
 
