@@ -1,11 +1,7 @@
 /**
  * Root next.config for Hostinger framework detection.
- * The actual Next.js app lives in frontend/ - build/start scripts run from there.
+ * Actual Next.js config lives in frontend/next.config.mjs.
  */
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Placeholder so Hostinger recognizes this as a Next.js project
-  // Real config and build are in frontend/
+export default {
+  // Placeholder for Hostinger detection - real config in frontend/
 };
-
-export default nextConfig;

@@ -2,13 +2,14 @@
   "name": "ondm",
   "version": "0.1.0",
   "private": true,
+  "main": "server.js",
   "workspaces": ["frontend", "backend"],
   "scripts": {
     "install:all": "npm install",
     "build": "npm run build:backend && npm run build:frontend",
     "build:backend": "cd backend && npx prisma generate && npm run build && cd ..",
     "build:frontend": "cd frontend && npm run build && cd .. && node -e \"require('fs').cpSync('frontend/.next','.next',{recursive:true}); require('fs').cpSync('frontend/public','public',{recursive:true})\"",
-    "start": "node scripts/db-push.js && node -r dotenv/config backend/dist/server.js",
+    "start": "node server.js",
     "dev": "pnpm -r --parallel run dev",
     "dev:backend": "pnpm --filter @ondm/backend dev",
     "dev:frontend": "pnpm --filter @ondm/frontend dev",
@@ -18,8 +19,12 @@
   "engines": {
     "node": ">=20.9.0"
   },
-  "devDependencies": {
+  "dependencies": {
     "dotenv": "^16.4.0",
+    "express": "^4.21.0",
+    "next": "16.1.1"
+  },
+  "devDependencies": {
     "prisma": "^6.0.0"
   }
 }

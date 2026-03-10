@@ -7,10 +7,17 @@ settings:
 importers:
 
   .:
-    devDependencies:
+    dependencies:
       dotenv:
         specifier: ^16.4.0
         version: 16.6.1
+      express:
+        specifier: ^4.21.0
+        version: 4.22.1
+      next:
+        specifier: 16.1.1
+        version: 16.1.1(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+    devDependencies:
       prisma:
         specifier: ^6.0.0
         version: 6.19.2(typescript@5.9.3)
