@@ -2,12 +2,21 @@
   "name": "ondm",
   "version": "0.1.0",
   "private": true,
+  "workspaces": ["frontend", "backend"],
   "scripts": {
     "dev": "pnpm -r --parallel run dev",
     "dev:backend": "pnpm --filter @ondm/backend dev",
     "dev:frontend": "pnpm --filter @ondm/frontend dev",
     "build": "pnpm --filter @ondm/backend build && pnpm --filter @ondm/frontend build",
+    "build:hostinger": "npm run build --workspace=frontend",
     "build:backend": "pnpm --filter @ondm/backend build",
-    "build:frontend": "pnpm --filter @ondm/frontend build"
+    "build:frontend": "pnpm --filter @ondm/frontend build",
+    "start": "cd frontend && npm run start -- -p $PORT"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "next": "16.1.1"
   }
 }
