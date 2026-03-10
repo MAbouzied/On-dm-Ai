@@ -8,8 +8,12 @@ Using an IP (e.g. `91.108.101.195`) will usually fail.
 
 ## Where to get the values
 
-1. In **hPanel** → **Databases** → **MySQL Databases**
-2. Open your database and copy the values shown there.
+1. **hPanel** → **Databases** → **MySQL Databases**
+2. Click your database and copy the **exact** values shown:
+   - **Database name** → `DB_NAME` (e.g. `u123456789_ondm`)
+   - **Username** → `DB_USER` (same format)
+   - **Password** → `DB_PASSWORD`
+   - **Hostname** → always `localhost`
 
 ## Environment variables to set
 

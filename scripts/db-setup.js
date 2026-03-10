@@ -28,6 +28,42 @@ if (!process.env.DATABASE_URL) {
   process.env.DATABASE_URL = `mysql://${user}:${encodeURIComponent(password)}@${host}:${port}/${name}`;
 }
 
+// 0. Test connection first (helps debug Hostinger)
+let testOk = false;
+try {
+  require("child_process").execSync("node scripts/db-connect-test.js", {
+    stdio: "inherit",
+    cwd: root,
+    env: { ...process.env },
+  });
+  testOk = true;
+} catch (e) {
+  if (process.env.DB_HOST && process.env.DB_HOST !== "localhost") {
+    console.log("[db-setup] Retrying with DB_HOST=localhost...");
+    process.env.DB_HOST = "localhost";
+    delete process.env.DATABASE_URL;
+    try {
+      require("child_process").execSync("node scripts/db-connect-test.js", {
+        stdio: "inherit",
+        cwd: root,
+        env: { ...process.env },
+      });
+      testOk = true;
+      process.env.DB_HOST = "localhost";
+      const u = process.env.DB_USER || "root";
+      const pw = process.env.DB_PASSWORD || "";
+      const n = process.env.DB_NAME || "ondm";
+      process.env.DATABASE_URL = `mysql://${u}:${encodeURIComponent(pw)}@localhost:${process.env.DB_PORT || "3306"}/${n}`;
+    } catch (e2) {
+      // fall through
+    }
+  }
+}
+if (!testOk) {
+  console.error("[db-setup] DB connection failed. Set DB_HOST=localhost, use full DB_USER/DB_NAME with Hostinger prefix. See HOSTINGER-MYSQL.md");
+  process.exit(1);
+}
+
 // 1. Push schema (creates tables)
 console.log("[db-setup] Pushing schema...");
 execSync("npx prisma db push --schema=backend/prisma/schema.prisma", {
