@@ -1,6 +1,6 @@
 # Deploying ON-DM to Hostinger
 
-This guide helps you deploy the ON-DM Next.js frontend to Hostinger via GitHub.
+This guide helps you deploy the ON-DM app (frontend + backend combined) to Hostinger via GitHub.
 
 ## Prerequisites
 
@@ -24,30 +24,40 @@ Configure Hostinger (use **npm**, not pnpm):
 | **Node.js version** | `20.x` (required: ≥20.9.0 for Next.js 16) |
 | **Install command** | `npm install` |
 | **Build command** | `npm run build` |
-| **Start command** | `npm run start -- -p $PORT` |
+| **Start command** | `npm run start` |
 
 ## Step 3: Environment Variables
 
-Add in Hostinger’s environment variables:
+Add in Hostinger's environment variables:
 
-- `NEXT_PUBLIC_API_URL` – Your backend API URL (e.g. `https://api.yourdomain.com`)
-
-If the backend is not deployed yet, the frontend will fall back to `http://localhost:4000` and API calls will fail in production.
+| Variable | Value |
+|----------|-------|
+| `NEXT_PUBLIC_API_URL` | `""` (empty string) for same-origin — API runs on same server |
+| `DATABASE_URL` | `file:./backend/dev.db` for SQLite (path relative to project root), or MySQL URL if using Hostinger MySQL |
+| `FRONTEND_URL` | `https://your-site.hostinger.com` (your deployed URL for CORS) |
+| `JWT_SECRET` | A random secret string for auth (e.g. generate with `openssl rand -base64 32`) |
 
 ## Step 4: Deploy
 
-Click **Deploy**. Hostinger will install dependencies, build the frontend, and start the app.
+Click **Deploy**. Hostinger will install dependencies, build both frontend and backend, and start the combined server.
 
-## Backend Deployment
+## Architecture
 
-The backend (Express + Prisma) must run separately. Options:
+The deployment runs a single Node.js process that:
 
-1. **Hostinger Node.js app** – Deploy the backend as another Node.js app and point `NEXT_PUBLIC_API_URL` to it
-2. **VPS** – Run backend on a VPS
-3. **Other PaaS** – Railway, Render, Fly.io, etc.
+- Serves the Next.js frontend (pages, static assets)
+- Serves the Express API at `/api/*`
+- Serves uploaded files at `/uploads`
+- Uses SQLite by default (`backend/dev.db`)
+
+## Database
+
+- **SQLite (default)**: Uses `file:./backend/dev.db`. The schema is created automatically on first run via `prisma db push` (run during build).
+- **MySQL**: If you use Hostinger MySQL, set `DATABASE_URL="mysql://user:pass@host:3306/ondm"` and run migrations manually or add to build.
 
 ## Troubleshooting
 
 - **"Unsupported framework"** – Ensure `next.config.mjs` and `package.json` with `next` are at the repo root (already configured)
-- **Build fails** – Check that `npm run build:hostinger` works locally
-- **API errors** – Set `NEXT_PUBLIC_API_URL` to your live backend URL
+- **Build fails** – Check that `npm run build` works locally
+- **403 Forbidden** – Ensure all environment variables are set in Hostinger
+- **API errors** – Set `NEXT_PUBLIC_API_URL=""` for combined deployment (same-origin)

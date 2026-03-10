@@ -1,4 +1,5 @@
-const required = ["NEXT_PUBLIC_API_URL"] as const;
+// NEXT_PUBLIC_API_URL is optional: "" for same-origin (combined deployment), or backend URL for separate deployment
+const required = [] as const;
 
 export function validateEnv() {
   if (typeof window !== "undefined") return;

@@ -28,7 +28,10 @@ import Logo from "./Logo";
 import Button from "./ui/Button";
 import { useSiteConfig, getConfigForLocale } from "@/lib/site-config-context";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL !== undefined
+    ? process.env.NEXT_PUBLIC_API_URL
+    : "http://localhost:4000";
 
 interface Project {
   id: string;

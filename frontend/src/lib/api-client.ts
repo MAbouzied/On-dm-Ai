@@ -2,7 +2,10 @@ import axios from "axios";
 import { getToken } from "./auth";
 
 const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000",
+  baseURL:
+    process.env.NEXT_PUBLIC_API_URL !== undefined
+      ? process.env.NEXT_PUBLIC_API_URL
+      : "http://localhost:4000",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",

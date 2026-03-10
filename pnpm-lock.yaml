@@ -6,7 +6,15 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      next:
+        specifier: 16.1.1
+        version: 16.1.1(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+    devDependencies:
+      prisma:
+        specifier: ^6.0.0
+        version: 6.19.2(typescript@5.9.3)
 
   backend:
     dependencies:
@@ -28,6 +36,9 @@ importers:
       multer:
         specifier: ^2.1.0
         version: 2.1.0
+      next:
+        specifier: 16.1.1
+        version: 16.1.1(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       zod:
         specifier: ^3.23.0
         version: 3.25.76

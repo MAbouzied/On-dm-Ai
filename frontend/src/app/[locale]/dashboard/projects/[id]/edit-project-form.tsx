@@ -221,7 +221,11 @@ export function EditProjectForm() {
               value={form.imageUrls}
               onChange={(urls) => setForm((f) => ({ ...f, imageUrls: urls }))}
               disabled={saving}
-              baseUrlForPreviews={process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"}
+              baseUrlForPreviews={
+                process.env.NEXT_PUBLIC_API_URL !== undefined
+                  ? process.env.NEXT_PUBLIC_API_URL
+                  : "http://localhost:4000"
+              }
             />
           </div>
         </div>

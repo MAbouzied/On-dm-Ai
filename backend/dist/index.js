@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 4000;
 // Ensure uploads directory exists (backend/uploads)
 const uploadsDir = path.join(__dirname, "..", "uploads");
 fs.mkdirSync(uploadsDir, { recursive: true });
-const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:3000")
+const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:3000,http://localhost:3001,http://localhost:3002")
     .split(",")
     .map((o) => o.trim());
 app.use(cors({

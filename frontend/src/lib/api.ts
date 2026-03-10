@@ -1,4 +1,7 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+export const API_URL =
+  process.env.NEXT_PUBLIC_API_URL !== undefined
+    ? process.env.NEXT_PUBLIC_API_URL
+    : "http://localhost:4000";
 
 const isDev = process.env.NODE_ENV === "development";
 const fetchOpts = isDev ? { cache: "no-store" as RequestCache } : { next: { revalidate: 60 } };

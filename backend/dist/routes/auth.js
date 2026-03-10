@@ -5,8 +5,8 @@ import { prisma } from "../lib/db.js";
 import { signToken } from "../lib/auth.js";
 const router = Router();
 const loginSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(1),
+    email: z.string().trim().email(),
+    password: z.string().trim().min(1),
 });
 router.post("/login", async (req, res) => {
     try {
