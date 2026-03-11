@@ -116,8 +116,18 @@ server.use("/api/team", teamRoutes);
 server.use("/api/contact", contactRoutes);
 server.use("/api/public", publicRoutes);
 
+// Redirect / to default locale (next-intl uses /ar or /en)
+server.get("/", (req, res) => {
+  res.redirect(302, "/ar");
+});
+
 // Next.js handles all other routes
-server.all("*", (req, res) => handle(req, res));
+server.all("*", (req, res) => {
+  handle(req, res).catch((err: unknown) => {
+    console.error("[server] Next.js handle error:", err);
+    res.status(500).end("Internal Server Error");
+  });
+});
 
 nextApp.prepare().then(() => {
   server.listen(PORT, () => {

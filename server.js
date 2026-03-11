@@ -22,11 +22,14 @@ process.on("unhandledRejection", (reason, p) => {
 const root = path.resolve(__dirname);
 process.chdir(root);
 
-// 1. Quick diagnostic (non-blocking for deploy)
-try {
-  execSync("node scripts/startup-check.js", { stdio: "inherit" });
-} catch (e) {
-  console.warn("[server] startup-check failed:", e.message || e);
+// 1. Quick diagnostic (ignore exit code - never block)
+const checkResult = spawnSync("node", ["scripts/startup-check.js"], {
+  stdio: "inherit",
+  cwd: root,
+  env: process.env,
+});
+if (checkResult.status !== 0) {
+  console.warn("[server] startup-check exited with", checkResult.status, "(continuing)");
 }
 
 // 2. Pre-flight: run build if artifacts missing (Hostinger may skip npm run build)
@@ -34,9 +37,18 @@ const backendDist = path.join(root, "backend", "dist", "server.js");
 if (!fs.existsSync(backendDist)) {
   console.log("[server] Build artifacts missing, running npm run build...");
   try {
-    execSync("npm run build", { stdio: "inherit", cwd: root });
+    const buildEnv = { ...process.env, NODE_OPTIONS: [process.env.NODE_OPTIONS, "--max-old-space-size=4096"].filter(Boolean).join(" ") };
+    execSync("npm run build", {
+      encoding: "utf8",
+      stdio: ["inherit", "pipe", "pipe"],
+      cwd: root,
+      env: buildEnv,
+      maxBuffer: 10 * 1024 * 1024,
+    });
   } catch (e) {
     console.error("[server] Build failed:", e.message || e);
+    if (e.stdout) console.error("[server] Build stdout:", e.stdout);
+    if (e.stderr) console.error("[server] Build stderr:", e.stderr);
     process.exit(1);
   }
 }
