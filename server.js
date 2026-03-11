@@ -32,25 +32,13 @@ if (checkResult.status !== 0) {
   console.warn("[server] startup-check exited with", checkResult.status, "(continuing)");
 }
 
-// 2. Pre-flight: run build if artifacts missing (Hostinger may skip npm run build)
+// 2. Pre-flight: require build artifacts (npm is NOT available at Hostinger runtime)
 const backendDist = path.join(root, "backend", "dist", "server.js");
 if (!fs.existsSync(backendDist)) {
-  console.log("[server] Build artifacts missing, running npm run build...");
-  try {
-    const buildEnv = { ...process.env, NODE_OPTIONS: [process.env.NODE_OPTIONS, "--max-old-space-size=4096"].filter(Boolean).join(" ") };
-    execSync("npm run build", {
-      encoding: "utf8",
-      stdio: ["inherit", "pipe", "pipe"],
-      cwd: root,
-      env: buildEnv,
-      maxBuffer: 10 * 1024 * 1024,
-    });
-  } catch (e) {
-    console.error("[server] Build failed:", e.message || e);
-    if (e.stdout) console.error("[server] Build stdout:", e.stdout);
-    if (e.stderr) console.error("[server] Build stderr:", e.stderr);
-    process.exit(1);
-  }
+  console.error("[server] Build artifacts missing. backend/dist/server.js not found.");
+  console.error("[server] Hostinger: Set Build command to 'npm run build' in your Node.js app settings.");
+  console.error("[server] The build must run during deploy; npm is not available at runtime.");
+  process.exit(1);
 }
 
 // 3. Run db-setup in background so it never blocks server startup
