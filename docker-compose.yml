@@ -1,0 +1,88 @@
+services:
+  # MySQL Database
+  ondm-mysql:
+    image: mysql:8
+    container_name: ondm-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-ondm_root_secure_2024}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ondm}
+      MYSQL_USER: ${MYSQL_USER:-ondm}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ondm_secure_pass_2024}
+    volumes:
+      - ondm_mysql_data:/var/lib/mysql
+    networks:
+      - ondm-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-ondm_root_secure_2024}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Backend API
+  ondm-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ondm-backend
+    restart: unless-stopped
+    ports:
+      - "4001:4000"
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - DATABASE_URL=mysql://${MYSQL_USER:-ondm}:${MYSQL_PASSWORD:-ondm_secure_pass_2024}@ondm-mysql:3306/${MYSQL_DATABASE:-ondm}
+      - JWT_SECRET=${JWT_SECRET}
+      - FRONTEND_URL=${FRONTEND_URL:-https://on-dm.com}
+      - API_BASE_URL=${API_BASE_URL:-https://api.on-dm.com}
+    volumes:
+      - ondm_uploads:/app/uploads
+    depends_on:
+      ondm-mysql:
+        condition: service_healthy
+    networks:
+      - ondm-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Frontend
+  ondm-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=https://api.on-dm.com
+        - NEXT_PUBLIC_SITE_URL=https://staging.on-dm.com
+    container_name: ondm-frontend
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=https://api.on-dm.com
+      - NEXT_PUBLIC_SITE_URL=https://staging.on-dm.com
+    depends_on:
+      - ondm-backend
+    networks:
+      - ondm-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  ondm_mysql_data:
+    driver: local
+  ondm_uploads:
+    driver: local
+
+networks:
+  ondm-network:
+    driver: bridge

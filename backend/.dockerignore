@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log
+.env
+.env.local
+.env.development
+.env.production
+!.env.example
+dist
+*.log
+!package-lock.json
+.git
+.gitignore
+README.md
+MYSQL-SETUP.md
+.DS_Store
+coverage
+.nyc_output
