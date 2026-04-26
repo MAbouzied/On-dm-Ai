@@ -74,6 +74,23 @@ export async function getPublicHomepage() {
   }
 }
 
+export type SuccessPartnerPublic = {
+  id: string;
+  logoUrl: string;
+  websiteUrl: string | null;
+  label: string | null;
+};
+
+export async function getPublicSuccessPartners(): Promise<SuccessPartnerPublic[]> {
+  try {
+    const res = await fetch(`${API_URL}/api/public/success-partners`, fetchOpts);
+    if (!res.ok) return [];
+    return safeJson(res, []);
+  } catch {
+    return [];
+  }
+}
+
 export async function getPublicTeam() {
   try {
     const res = await fetch(`${API_URL}/api/public/team`, {

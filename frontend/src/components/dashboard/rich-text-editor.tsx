@@ -140,6 +140,8 @@ interface RichTextEditorProps {
   onChange: (html: string) => void;
   placeholder?: string;
   className?: string;
+  /** Merged into the editable surface (e.g. taller min-height for full-width forms) */
+  contentClassName?: string;
   dir?: "ltr" | "rtl";
   disabled?: boolean;
 }
@@ -149,6 +151,7 @@ export function RichTextEditor({
   onChange,
   placeholder = "Write your content...",
   className,
+  contentClassName,
   dir = "ltr",
   disabled = false,
 }: RichTextEditorProps) {
@@ -174,7 +177,10 @@ export function RichTextEditor({
     },
     editorProps: {
       attributes: {
-        class: "prose prose-sm max-w-none min-h-[120px] px-3 py-2 focus:outline-none",
+        class: cn(
+          "prose prose-sm max-w-none px-3 py-2 focus:outline-none",
+          contentClassName ?? "min-h-[120px]",
+        ),
         dir,
       },
       handlePaste: (view, event) => {
@@ -226,9 +232,11 @@ export function RichTextEditor({
   }
 
   return (
-    <div className={cn("overflow-hidden rounded-md border border-gray-300 bg-white", className)}>
+    <div className={cn("flex min-h-0 flex-col overflow-hidden rounded-md border border-gray-300 bg-white", className)}>
       <MenuBar editor={editor} />
-      <EditorContent editor={editor} />
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <EditorContent editor={editor} />
+      </div>
     </div>
   );
 }

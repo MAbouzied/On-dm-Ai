@@ -4,6 +4,8 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  /** Hides the dev indicator when idle; reduces noise from the `nextjs-portal` host (dev only). */
+  devIndicators: false,
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "**", pathname: "/**" },

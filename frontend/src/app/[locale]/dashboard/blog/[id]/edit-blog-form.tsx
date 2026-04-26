@@ -100,10 +100,13 @@ export function EditBlogForm() {
 
   if (loading) return <div>Loading...</div>;
 
+  const editorShell = "min-h-[min(58vh,720px)] w-full flex-1";
+  const editorContentClass = "min-h-[min(52vh,640px)] md:prose-base";
+
   return (
-    <div>
-      <h1 className="mb-6 text-2xl font-bold">{isNew ? "Add Blog Post" : "Edit Blog Post"}</h1>
-      <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+    <div className="flex w-full min-w-0 flex-col gap-6 pb-12 min-h-[calc(100dvh-5.5rem)]">
+      <h1 className="text-2xl font-bold shrink-0">{isNew ? "Add Blog Post" : "Edit Blog Post"}</h1>
+      <form onSubmit={handleSubmit} className="flex w-full max-w-full min-w-0 flex-col space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700">Slug</label>
           <input
@@ -153,24 +156,28 @@ export function EditBlogForm() {
             />
           </div>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Content (EN)</label>
-            <div className="mt-1">
+        <div className="grid min-h-0 w-full grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+          <div className="flex min-h-0 min-w-0 flex-col">
+            <label className="mb-1 block shrink-0 text-sm font-medium text-gray-700">Content (EN)</label>
+            <div className="mt-1 flex min-h-0 min-w-0 flex-1 flex-col">
               <RichTextEditor
                 value={form.contentEn}
                 onChange={(html) => setForm((f) => ({ ...f, contentEn: html }))}
                 dir="ltr"
+                className={editorShell}
+                contentClassName={editorContentClass}
               />
             </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Content (AR)</label>
-            <div className="mt-1">
+          <div className="flex min-h-0 min-w-0 flex-col">
+            <label className="mb-1 block shrink-0 text-sm font-medium text-gray-700">Content (AR)</label>
+            <div className="mt-1 flex min-h-0 min-w-0 flex-1 flex-col">
               <RichTextEditor
                 value={form.contentAr}
                 onChange={(html) => setForm((f) => ({ ...f, contentAr: html }))}
                 dir="rtl"
+                className={editorShell}
+                contentClassName={editorContentClass}
               />
             </div>
           </div>

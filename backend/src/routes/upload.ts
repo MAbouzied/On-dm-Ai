@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 const router = Router();
 
-const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "image/svg+xml"];
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const UPLOADS_DIR = path.join(__dirname, "../../uploads");
 

@@ -42,6 +42,13 @@ export default async function DashboardPage({
           <p className="mt-1 text-sm text-gray-500">Edit homepage sections</p>
         </a>
         <a
+          href={`/${locale}/dashboard/success-partners`}
+          className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm hover:border-gray-300"
+        >
+          <h2 className="font-semibold">Success partners</h2>
+          <p className="mt-1 text-sm text-gray-500">Upload homepage client logos (marquee)</p>
+        </a>
+        <a
           href={`/${locale}/dashboard/contact`}
           className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm hover:border-gray-300"
         >

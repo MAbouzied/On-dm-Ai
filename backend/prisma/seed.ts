@@ -169,12 +169,6 @@ async function main() {
     { key: "ourStory.stats.products", value: "42+" },
     { key: "ourStory.stats.products.labelEn", value: "Projects delivered" },
     { key: "ourStory.stats.products.labelAr", value: "مشاريع منجزة" },
-    { key: "clients", value: JSON.stringify([
-      { name: "Tfaseel", logo: "/Tfaseel.svg", url: "https://tfaseel.com/" },
-      { name: "Bubbles", logo: "/Bubbles.svg", url: "https://bubbleskidswear.com/" },
-      { name: "3abq", logo: "/3abq.svg", url: "https://web.3baq.com.sa/" },
-      { name: "Wessam El-Shutter", logo: "/Wessam-el-shutter.svg", url: "https://sa.el-shutter.com/" },
-    ]) },
     { key: "hero.startProjectEn", value: "Start Project" },
     { key: "hero.startProjectAr", value: "ابدأ المشروع" },
     { key: "hero.exploreServicesEn", value: "Explore Services" },
@@ -223,6 +217,18 @@ async function main() {
       where: { key: config.key },
       update: {}, // Never overwrite - preserve dashboard edits
       create: config,
+    });
+  }
+
+  const partnerCount = await prisma.successPartner.count();
+  if (partnerCount === 0) {
+    await prisma.successPartner.createMany({
+      data: [
+        { logoUrl: "/Tfaseel.svg", websiteUrl: "https://tfaseel.com/", label: "Tfaseel", sortOrder: 0 },
+        { logoUrl: "/Bubbles.svg", websiteUrl: "https://bubbleskidswear.com/", label: "Bubbles", sortOrder: 1 },
+        { logoUrl: "/3abq.svg", websiteUrl: "https://web.3baq.com.sa/", label: "3abq", sortOrder: 2 },
+        { logoUrl: "/Wessam-el-shutter.svg", websiteUrl: "https://sa.el-shutter.com/", label: "Wessam El-Shutter", sortOrder: 3 },
+      ],
     });
   }
 

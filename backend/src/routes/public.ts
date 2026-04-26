@@ -64,6 +64,24 @@ router.get("/blog/:slug", async (req, res) => {
   }
 });
 
+router.get("/success-partners", async (_req, res) => {
+  try {
+    const items = await prisma.successPartner.findMany({
+      orderBy: { sortOrder: "asc" },
+      select: {
+        id: true,
+        logoUrl: true,
+        websiteUrl: true,
+        label: true,
+      },
+    });
+    res.json(items);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.get("/homepage", async (req, res) => {
   try {
     const configs = await prisma.homepageConfig.findMany();

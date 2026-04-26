@@ -20,11 +20,11 @@ export async function AboutTestimonial({
           {/* Company Logo */}
           <div className="flex items-center justify-center mb-8">
             <Image
-              src="/logo.png"
-              alt="ON DM Logo"
-              width={126}
-              height={31}
-              className="object-contain"
+              src="/logo.svg"
+              alt="ON DM"
+              width={1602}
+              height={392}
+              className="h-10 md:h-12 w-auto max-w-[min(100%,280px)] object-contain"
             />
           </div>
 

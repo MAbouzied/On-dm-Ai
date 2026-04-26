@@ -43,12 +43,14 @@ import teamRoutes from "./routes/team.js";
 import contactRoutes from "./routes/contact.js";
 import publicRoutes from "./routes/public.js";
 import uploadRoutes from "./routes/upload.js";
+import successPartnersRoutes from "./routes/success-partners.js";
 
 app.use("/api/auth", authRoutes);
 app.use("/api/services", servicesRoutes);
 app.use("/api/projects", projectsRoutes);
 app.use("/api/blog", blogRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/success-partners", successPartnersRoutes);
 app.use("/api/homepage", homepageRoutes);
 app.use("/api/site-config", siteConfigRoutes);
 app.use("/api/contact-page", contactPageRoutes);
@@ -58,6 +60,8 @@ app.use("/api/public", publicRoutes);
 
 app.listen(PORT, () => {
   console.log(`ON-DM Backend running on http://localhost:${PORT}`);
-  console.log("Database:", process.env.DATABASE_URL || "file:./dev.db (default)");
+  const dbUrl = process.env.DATABASE_URL || "";
+  const dbHint = dbUrl.includes("@") ? dbUrl.split("@")[1] || "(set)" : dbUrl.slice(0, 40) || "(not set)";
+  console.log("Database:", dbHint);
   console.log("CORS allowed origins:", process.env.FRONTEND_URL || "http://localhost:3000");
 });

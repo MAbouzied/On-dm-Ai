@@ -138,7 +138,6 @@ export const SITE_CONFIG_SECTIONS: Record<string, ConfigSection[]> = {
         ...enArField("clients.badge", "Badge"),
         ...enArField("clients.title", "Title"),
         ...enArField("clients.description", "Description"),
-        { key: "clients", label: "Clients JSON (array of {name, logo})", type: "textarea" },
       ],
     },
   ],

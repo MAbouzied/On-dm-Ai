@@ -70,6 +70,15 @@ const config: Config = {
         sans: ["var(--font-poppins)"],
         display: ["var(--font-wix)"],
       },
+      keyframes: {
+        "clients-marquee": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        "clients-marquee": "clients-marquee 45s linear infinite",
+      },
     },
   },
   plugins: [

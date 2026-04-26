@@ -83,23 +83,6 @@ export const SERVICE_CATEGORIES: Record<string, ServiceCategory> = {
 } as const;
 
 // ============================================
-// Clients Section Constants
-// ============================================
-
-export interface Client {
-  name: string;
-  logo: string;
-  url?: string;
-}
-
-export const CLIENTS: Client[] = [
-  { name: "Tfaseel", logo: "/Tfaseel.svg", url: "https://tfaseel.com/" },
-  { name: "Bubbles", logo: "/Bubbles.svg", url: "https://bubbleskidswear.com/" },
-  { name: "3abq", logo: "/3abq.svg", url: "https://web.3baq.com.sa/" },
-  { name: "Wessam El-Shutter", logo: "/Wessam-el-shutter.svg", url: "https://sa.el-shutter.com/" },
-];
-
-// ============================================
 // Services Grid Constants
 // ============================================
 

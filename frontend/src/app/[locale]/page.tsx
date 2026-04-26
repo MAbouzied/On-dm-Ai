@@ -8,7 +8,7 @@ import { ClientsSection } from "@/components/home/clients-section";
 import { BlogSection } from "@/components/home/blog-section";
 import StickySection from "@/components/home/StickySection";
 import WorkContent from "@/components/home/work-content";
-import { getPublicHomepage, getPublicProjects } from "@/lib/api";
+import { getPublicHomepage, getPublicProjects, getPublicSuccessPartners } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +34,8 @@ export default async function HomePage({ params }: HomePageProps) {
     // Fallback to empty
   }
 
+  let successPartners = await getPublicSuccessPartners();
+
   return (
     <main className="w-full min-h-screen flex flex-col items-center">
       <Hero config={homepageConfig} locale={locale} />
@@ -43,7 +45,7 @@ export default async function HomePage({ params }: HomePageProps) {
       <ServicesGrid locale={locale} />
       <WorkIntro config={homepageConfig} locale={locale} />
       <WorkContent projects={projects} locale={locale} />
-      <ClientsSection config={homepageConfig} locale={locale} />
+      <ClientsSection config={homepageConfig} locale={locale} partners={successPartners} />
       <BlogSection config={homepageConfig} locale={locale} />
     </main>
   );

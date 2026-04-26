@@ -49,37 +49,39 @@ export default async function WorkContent({ projects, locale }: WorkContentProps
   });
 
   return (
-    <div className="container relative flex flex-col gap-10">
-      {cards.map((item, index) => (
-        <div
-          key={index}
-          className={`sticky ${item.top} py-6.5 px-4 md:px-15 flex flex-col gap-10 rounded-[26px] ${item.bgColor} h-68.75 md:h-186.25 overflow-hidden`}
-        >
-          <div className={`space-y-6 ${item.textColor}`}>
-            <Button className={`capitalize text-[15px] leading-6 py-0.5! px-2.5! h-fit! font-light! ${item.buttonColor}`}>
-              {item.projectName}
-            </Button>
-            <div className="flex items-center justify-between">
-              <p className={`text-sm md:text-4xl ${item.textColor}`}>{item.badge}</p>
-              <Link
-                href={item.slug ? `/work/${item.slug}` : "/work"}
-                className={`shadow-none bg-transparent ${item.textColor} group inline-flex items-center gap-1`}
-              >
-                {t("viewFullProject")}
-                <span><ArrowUpRight className="size-6 group-hover:rotate-45 transition-transform duration-150" /></span>
-              </Link>
+    <div className="relative pb-[50px]">
+      <div className="container relative flex flex-col gap-10">
+        {cards.map((item, index) => (
+          <div
+            key={index}
+            className={`sticky ${item.top} py-6.5 px-4 md:px-15 flex flex-col gap-10 rounded-[26px] ${item.bgColor} h-68.75 md:h-186.25 overflow-hidden`}
+          >
+            <div className={`space-y-6 ${item.textColor}`}>
+              <Button className={`capitalize text-[15px] leading-6 py-0.5! px-2.5! h-fit! font-light! ${item.buttonColor}`}>
+                {item.projectName}
+              </Button>
+              <div className="flex items-center justify-between">
+                <p className={`text-sm md:text-4xl ${item.textColor}`}>{item.badge}</p>
+                <Link
+                  href={item.slug ? `/work/${item.slug}` : "/work"}
+                  className={`shadow-none bg-transparent ${item.textColor} group inline-flex items-center gap-1`}
+                >
+                  {t("viewFullProject")}
+                  <span><ArrowUpRight className="size-6 group-hover:rotate-45 transition-transform duration-150" /></span>
+                </Link>
+              </div>
+            </div>
+            <div className={`relative w-full bg-white aspect-video rounded-t-[54px] ${item.shadow}`}>
+              <Image
+                src={item.image?.startsWith("http") || item.image?.startsWith("/") ? item.image : `/${item.image}`}
+                alt={item.projectName}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
             </div>
           </div>
-          <div className={`relative w-full bg-white aspect-video rounded-t-[54px] ${item.shadow}`}>
-            <Image
-              src={item.image?.startsWith("http") || item.image?.startsWith("/") ? item.image : `/${item.image}`}
-              alt={item.projectName}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

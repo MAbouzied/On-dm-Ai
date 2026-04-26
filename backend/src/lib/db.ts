@@ -2,8 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
-function buildDatabaseUrl(): string {
-  if (process.env.DATABASE_URL) return process.env.DATABASE_URL;
+function buildDatabaseUrlFromParts(): string {
   const host = process.env.MYSQL_HOST || process.env.DB_HOST || "localhost";
   const port = process.env.MYSQL_PORT || process.env.DB_PORT || "3306";
   const user = process.env.MYSQL_USER || process.env.DB_USER || "root";
@@ -12,9 +11,20 @@ function buildDatabaseUrl(): string {
   return `mysql://${user}:${encodeURIComponent(password)}@${host}:${port}/${name}`;
 }
 
-if (!process.env.DATABASE_URL) {
-  process.env.DATABASE_URL = buildDatabaseUrl();
+/** Prisma schema uses `provider = "mysql"` — only `mysql://` URLs are valid. */
+function resolveDatabaseUrl(): string {
+  const raw = process.env.DATABASE_URL?.trim();
+  if (raw && /^mysql:/i.test(raw)) return raw;
+  if (raw && !/^mysql:/i.test(raw)) {
+    const preview = raw.length > 32 ? `${raw.slice(0, 32)}…` : raw;
+    console.warn(
+      `[db] Ignoring DATABASE_URL (not mysql://). Prisma expects MySQL. Using DB_* / MYSQL_* or default localhost. Was: ${preview}`
+    );
+  }
+  return buildDatabaseUrlFromParts();
 }
+
+process.env.DATABASE_URL = resolveDatabaseUrl();
 
 export const prisma =
   globalForPrisma.prisma ||

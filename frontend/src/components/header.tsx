@@ -24,7 +24,6 @@ import {
   Sparkles,
   PlayCircle,
 } from "lucide-react";
-import Logo from "./Logo";
 import Button from "./ui/Button";
 import { useSiteConfig, getConfigForLocale } from "@/lib/site-config-context";
 
@@ -103,12 +102,12 @@ export function Header() {
       <header className="w-full pt-6 top-0 md:top-2 px-4 pointer-events-none mx-auto   md:fixed z-50 ">
         <div className="container h-[40px] md:h-20 pr-3 pl-4 md:px-8 top-0 left-0 bg-transparent backdrop-blur-[0px] md:bg-white/80 rounded-full md:border md:border-[#E8E8E8] flex items-center justify-between p-2 pl-6 pointer-events-auto md:backdrop-blur-[8.8px]">
           <LocalizedLink href="/">
-            {/* <Logo /> */}
             <Image
-              src="/logo.png"
-              alt="ONDM Logo"
-              width={126}
-              height={31}
+              src="/logo.svg"
+              alt="ON DM"
+              width={1602}
+              height={392}
+              className="h-[28px] w-auto md:h-8 object-contain"
               priority
             />
           </LocalizedLink>

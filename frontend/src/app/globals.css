@@ -217,3 +217,16 @@ span {
 
   @apply px-4 md:px-0;
 }
+
+/*
+  Next.js (dev only) mounts <nextjs-portal> for the error overlay / dev tools.
+  Without fixed positioning it can participate in layout and confuse flex/grid
+  or inspector (see vercel/next.js#70675). Production builds omit this element.
+*/
+nextjs-portal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  isolation: isolate;
+}

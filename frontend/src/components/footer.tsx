@@ -149,7 +149,8 @@ export function Footer() {
               </span>
               <a
                 href={`tel:${(contactConfig["contact.phoneNumber"] || "80899834256").replace(/\s/g, "")}`}
-                className="text-black font-semibold hover:text-gray-600 transition-colors"
+                dir="ltr"
+                className="block w-full text-right text-black font-semibold hover:text-gray-600 transition-colors"
               >
                 {contactConfig["contact.phoneNumber"] || "(808) 998-34256"}
               </a>

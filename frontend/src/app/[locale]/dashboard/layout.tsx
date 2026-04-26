@@ -8,6 +8,7 @@ import Link from "next/link";
 const SIDEBAR_LINKS = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/dashboard/homepage", label: "Homepage" },
+  { href: "/dashboard/success-partners", label: "Success partners" },
   { href: "/dashboard/navigation", label: "Navigation" },
   { href: "/dashboard/footer", label: "Footer" },
   { href: "/dashboard/cta", label: "CTA" },
