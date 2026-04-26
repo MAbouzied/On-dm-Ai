@@ -7,14 +7,59 @@ import apiClient from "@/lib/api-client";
 import {
   Facebook,
   Instagram,
-  Twitter,
-  ChevronUp,
+  X,
+  Youtube,
   ArrowUpRight,
 } from "lucide-react";
-import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/constants";
+import { FOOTER_LINKS, SOCIAL_LINKS, type SocialLink, type SocialIconId } from "@/lib/constants";
+import { SnapchatBrandIcon, TikTokBrandIcon } from "@/components/social-brand-icons";
 import Button from "./ui/Button";
 import ArrowUp from "@/icons/ArrowUp";
 import { useSiteConfig, getConfigEnAr } from "@/lib/site-config-context";
+
+const FOOTER_SOCIAL_FIELDS: { configKey: string; name: string; icon: SocialIconId }[] = [
+  { configKey: "footer.social.facebook", name: "Facebook", icon: "facebook" },
+  { configKey: "footer.social.tiktok", name: "TikTok", icon: "tiktok" },
+  { configKey: "footer.social.snapchat", name: "Snapchat", icon: "snapchat" },
+  { configKey: "footer.social.instagram", name: "Instagram", icon: "instagram" },
+  { configKey: "footer.social.youtube", name: "YouTube", icon: "youtube" },
+  { configKey: "footer.social.x", name: "X", icon: "x" },
+];
+
+function parseLegacySocialJson(raw: string | undefined): SocialLink[] | null {
+  if (!raw?.trim()) return null;
+  try {
+    const parsed = JSON.parse(raw) as Array<{ name: string; href: string; icon: string }>;
+    if (!Array.isArray(parsed) || parsed.length === 0) return null;
+    return parsed.map((s) => {
+      const icon = (s.icon === "twitter" ? "x" : s.icon) as SocialIconId;
+      return {
+        name: s.icon === "twitter" ? "X" : s.name,
+        href: s.href,
+        icon,
+      };
+    });
+  } catch {
+    return null;
+  }
+}
+
+function resolveFooterSocialLinks(
+  siteConfig: Record<string, string>,
+  contactConfig: Record<string, string>
+): SocialLink[] {
+  const structured: SocialLink[] = [];
+  for (const row of FOOTER_SOCIAL_FIELDS) {
+    const href = (siteConfig[row.configKey] ?? "").trim();
+    if (href) structured.push({ name: row.name, href, icon: row.icon });
+  }
+  if (structured.length > 0) return structured;
+  return (
+    parseLegacySocialJson(siteConfig["footer.socialLinks"]) ??
+    parseLegacySocialJson(contactConfig["contact.socialLinks"]) ??
+    SOCIAL_LINKS
+  );
+}
 
 export function Footer() {
   const t = useTranslations("footer");
@@ -34,18 +79,29 @@ export function Footer() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const getSocialIcon = (icon: string) => {
+  const getSocialIcon = (icon: SocialIconId) => {
+    const cls = "w-4 h-4 text-black shrink-0";
     switch (icon) {
       case "facebook":
-        return <Facebook className="w-4 h-4 text-black" />;
+        return <Facebook className={cls} />;
       case "instagram":
-        return <Instagram className="w-4 h-4 text-black" />;
+        return <Instagram className={cls} />;
+      case "youtube":
+        return <Youtube className={cls} />;
+      case "tiktok":
+        return <TikTokBrandIcon className={cls} />;
+      case "snapchat":
+        return <SnapchatBrandIcon className={cls} />;
+      case "x":
       case "twitter":
-        return <Twitter className="w-4 h-4 text-black" />;
+        return <X className={cls} />;
       default:
         return null;
     }
   };
+
+  const socialShow = siteConfig["footer.social.show"] !== "false";
+  const socialLinks = resolveFooterSocialLinks(siteConfig, contactConfig);
 
   const ctaTitle = getConfigEnAr(siteConfig, "cta.title", locale, tCta("title"));
   const ctaDescription = getConfigEnAr(siteConfig, "cta.description", locale, tCta("description"));
@@ -130,7 +186,7 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-x-12 md:gap-y-5">
             <div className="flex flex-col gap-2">
               <span className="text-gray-500 text-sm">
                 {emailLabel}
@@ -168,35 +224,32 @@ export function Footer() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-4">
-              <span className="text-gray-500 text-sm">
-                {followUsLabel}
-              </span>
-              <div className="flex items-center gap-4">
-                {(() => {
-                  const socialLinks = (() => {
-                    const raw = siteConfig["footer.socialLinks"] || contactConfig["contact.socialLinks"];
-                    if (!raw) return SOCIAL_LINKS;
-                    try {
-                      const parsed = JSON.parse(raw) as Array<{ name: string; href: string; icon: string }>;
-                      return Array.isArray(parsed) && parsed.length > 0 ? parsed : SOCIAL_LINKS;
-                    } catch {
-                      return SOCIAL_LINKS;
-                    }
-                  })();
-                  return socialLinks.map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.href || "#"}
-                      className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
-                      aria-label={social.name}
-                    >
-                      {getSocialIcon(social.icon)}
-                    </a>
-                  ));
-                })()}
+            {socialShow && socialLinks.length > 0 ? (
+              <div className="flex flex-col gap-4">
+                <span className="text-gray-500 text-sm">
+                  {followUsLabel}
+                </span>
+                <div className="flex flex-wrap items-center gap-4">
+                  {socialLinks.map((social) => {
+                    const href = social.href || "#";
+                    const external = /^https?:\/\//i.test(href);
+                    return (
+                      <a
+                        key={`${social.icon}-${href}`}
+                        href={href}
+                        {...(external
+                          ? { target: "_blank" as const, rel: "noopener noreferrer" }
+                          : {})}
+                        className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
+                        aria-label={social.name}
+                      >
+                        {getSocialIcon(social.icon)}
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
         </div>
       </div>

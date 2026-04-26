@@ -106,7 +106,12 @@ export function SiteConfigForm({ sections, title }: SiteConfigFormProps) {
             <div className="space-y-4">
               {section.fields.map((field) => (
                 <div key={field.key}>
-                  <label className="block text-sm font-medium text-gray-700">{field.label}</label>
+                  <label
+                    className="block text-sm font-medium text-gray-700"
+                    htmlFor={field.type === "checkbox" ? `cfg-${field.key}` : undefined}
+                  >
+                    {field.label}
+                  </label>
                   {field.type === "textarea" ? (
                     <textarea
                       value={config[field.key] ?? ""}
@@ -130,6 +135,14 @@ export function SiteConfigForm({ sections, title }: SiteConfigFormProps) {
                         className="flex-1 rounded-md border border-gray-300 px-3 py-2 font-mono text-sm"
                       />
                     </div>
+                  ) : field.type === "checkbox" ? (
+                    <input
+                      id={`cfg-${field.key}`}
+                      type="checkbox"
+                      checked={config[field.key] !== "false"}
+                      onChange={(e) => updateConfig(field.key, e.target.checked ? "true" : "false")}
+                      className="mt-2 h-4 w-4 cursor-pointer rounded border-gray-300 text-gray-900"
+                    />
                   ) : (
                     <input
                       type="text"

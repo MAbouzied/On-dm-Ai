@@ -326,16 +326,26 @@ export const FOOTER_LINKS: FooterLink[] = [
 // Social Links
 // ============================================
 
+export type SocialIconId =
+  | "facebook"
+  | "tiktok"
+  | "snapchat"
+  | "instagram"
+  | "youtube"
+  | "x"
+  | "twitter";
+
 export interface SocialLink {
   name: string;
   href: string;
-  icon: "facebook" | "instagram" | "twitter";
+  icon: SocialIconId;
 }
 
+/** Fallback when no dashboard URLs or legacy JSON is set */
 export const SOCIAL_LINKS: SocialLink[] = [
   { name: "Facebook", href: "#", icon: "facebook" },
   { name: "Instagram", href: "#", icon: "instagram" },
-  { name: "Twitter", href: "#", icon: "twitter" },
+  { name: "X", href: "#", icon: "x" },
 ];
 
 // ============================================

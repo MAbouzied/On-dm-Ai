@@ -6,7 +6,7 @@
 export interface ConfigField {
   key: string;
   label: string;
-  type?: "text" | "textarea" | "color" | "url";
+  type?: "text" | "textarea" | "color" | "url" | "checkbox";
 }
 
 export interface ConfigSection {
@@ -215,7 +215,17 @@ export const SITE_CONFIG_SECTIONS: Record<string, ConfigSection[]> = {
     {
       title: "Footer Social Links",
       fields: [
-        { key: "footer.socialLinks", label: "Social Links (JSON: [{name, href, icon}])", type: "textarea" },
+        {
+          key: "footer.social.show",
+          label: "Show social icons in footer",
+          type: "checkbox",
+        },
+        { key: "footer.social.facebook", label: "Facebook URL", type: "url" },
+        { key: "footer.social.tiktok", label: "TikTok URL", type: "url" },
+        { key: "footer.social.snapchat", label: "Snapchat URL", type: "url" },
+        { key: "footer.social.instagram", label: "Instagram URL", type: "url" },
+        { key: "footer.social.youtube", label: "YouTube URL", type: "url" },
+        { key: "footer.social.x", label: "X (Twitter) URL", type: "url" },
       ],
     },
   ],
