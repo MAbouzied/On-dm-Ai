@@ -26,11 +26,6 @@ const CONTACT_KEYS = [
   { key: "contact.address1Ar", label: "Address 1 (AR)" },
   { key: "contact.address2En", label: "Address 2 (EN)" },
   { key: "contact.address2Ar", label: "Address 2 (AR)" },
-  { key: "contact.mapLatitude", label: "Map Center Latitude (-90 to 90)" },
-  { key: "contact.mapLongitude", label: "Map Center Longitude (-180 to 180)" },
-  { key: "contact.mapZoom", label: "Map Zoom (1-20, optional)" },
-  { key: "contact.mapMarkerLatitude", label: "Marker Latitude (optional)" },
-  { key: "contact.mapMarkerLongitude", label: "Marker Longitude (optional)" },
 ];
 
 export default function ContactPage() {
@@ -63,25 +58,7 @@ export default function ContactPage() {
     fetchConfig();
   }, [fetchConfig]);
 
-  const validateLat = (v: string) => {
-    const n = parseFloat(v);
-    return v === "" || (!isNaN(n) && n >= -90 && n <= 90);
-  };
-  const validateLng = (v: string) => {
-    const n = parseFloat(v);
-    return v === "" || (!isNaN(n) && n >= -180 && n <= 180);
-  };
-
   const handleSave = async () => {
-    const lat = config["contact.mapLatitude"] ?? "";
-    const lng = config["contact.mapLongitude"] ?? "";
-    const markerLat = config["contact.mapMarkerLatitude"] ?? "";
-    const markerLng = config["contact.mapMarkerLongitude"] ?? "";
-    if (lat && !validateLat(lat)) return alert("Latitude must be between -90 and 90");
-    if (lng && !validateLng(lng)) return alert("Longitude must be between -180 and 180");
-    if (markerLat && !validateLat(markerLat)) return alert("Marker latitude must be between -90 and 90");
-    if (markerLng && !validateLng(markerLng)) return alert("Marker longitude must be between -180 and 180");
-
     setSaving(true);
     setSaveStatus("idle");
     try {
@@ -130,7 +107,14 @@ export default function ContactPage() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Contact Page</h1>
+        <div>
+          <h1 className="text-2xl font-bold">Contact Page</h1>
+          <p className="mt-1 text-sm text-gray-500">
+            Map pin and zoom are fixed in{" "}
+            <code className="rounded bg-gray-100 px-1 text-xs">src/lib/contact-map-location.ts</code>{" "}
+            (deploys with the build).
+          </p>
+        </div>
         <div className="flex items-center gap-3">
           {saveStatus === "success" && (
             <span className="text-sm font-medium text-green-600">Saved successfully</span>
@@ -152,16 +136,10 @@ export default function ContactPage() {
           <div key={key}>
             <label className="block text-sm font-medium text-gray-700">{label}</label>
             <input
-              type={key.includes("Latitude") || key.includes("Longitude") || key === "contact.mapZoom" ? "number" : "text"}
-              step={key.includes("Latitude") || key.includes("Longitude") ? "any" : undefined}
+              type="text"
               value={config[key] ?? ""}
               onChange={(e) => setConfig((c) => ({ ...c, [key]: e.target.value }))}
               className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2"
-              placeholder={
-                key === "contact.mapLatitude" ? "e.g. 30.0444" :
-                key === "contact.mapLongitude" ? "e.g. 31.2357" :
-                key === "contact.mapZoom" ? "e.g. 15" : undefined
-              }
             />
           </div>
         ))}

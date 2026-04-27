@@ -1,6 +1,7 @@
 import { ContactHero } from "@/components/contact/contact-hero";
 import { ContactForm } from "@/components/contact/contact-form";
 import { getPublicContactPage } from "@/lib/api";
+import { CONTACT_MAP_LAT, CONTACT_MAP_LNG, CONTACT_MAP_ZOOM } from "@/lib/contact-map-location";
 import { setRequestLocale } from "next-intl/server";
 
 type Props = {
@@ -43,11 +44,11 @@ export default async function ContactPage({ params }: Props) {
         whatsappUrl={config["contact.whatsappUrl"] || undefined}
         phoneNumber={config["contact.phoneNumber"] || undefined}
         meetingUrl={config["contact.meetingUrl"] || undefined}
-        mapLatitude={config["contact.mapLatitude"] || undefined}
-        mapLongitude={config["contact.mapLongitude"] || undefined}
-        mapZoom={config["contact.mapZoom"] || undefined}
-        mapMarkerLatitude={config["contact.mapMarkerLatitude"] || undefined}
-        mapMarkerLongitude={config["contact.mapMarkerLongitude"] || undefined}
+        mapLatitude={String(CONTACT_MAP_LAT)}
+        mapLongitude={String(CONTACT_MAP_LNG)}
+        mapZoom={String(CONTACT_MAP_ZOOM)}
+        mapMarkerLatitude={String(CONTACT_MAP_LAT)}
+        mapMarkerLongitude={String(CONTACT_MAP_LNG)}
         loadingText={tMap("loading")}
       />
       <ContactForm

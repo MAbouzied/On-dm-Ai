@@ -27,11 +27,6 @@ const CONTACT_KEYS = new Set([
   "contact.address2En",
   "contact.address2Ar",
   "contact.socialLinks",
-  "contact.mapLatitude",
-  "contact.mapLongitude",
-  "contact.mapZoom",
-  "contact.mapMarkerLatitude",
-  "contact.mapMarkerLongitude",
 ]);
 
 const updateContactPageSchema = z.record(

@@ -81,7 +81,13 @@ function FeatureSection({
         style={{ backgroundColor: imageColor }}
       >
         {imageUrl ? (
-          <Image src={imageUrl} alt="" fill className="object-cover" />
+          <Image
+            src={imageUrl}
+            alt={title}
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 768px) 100vw, 560px"
+          />
         ) : null}
       </div>
     </div>
@@ -126,7 +132,8 @@ export async function AboutFeatures({
       description: f1Desc,
       items: [{ text: f1Item1 }, { text: f1Item2 }, { text: f1Item3 }],
       imageColor: "#F5E6FE",
-      imageUrl: config["about.features.feature1.imageUrl"] || undefined,
+      imageUrl:
+        config["about.features.feature1.imageUrl"] || "/about/feature1-illustration.png",
       reverse: false,
     },
     {
@@ -135,7 +142,8 @@ export async function AboutFeatures({
       description: f2Desc,
       items: [{ text: f2Item1 }, { text: f2Item2 }, { text: f2Item3 }],
       imageColor: "#DDEAC8",
-      imageUrl: config["about.features.feature2.imageUrl"] || undefined,
+      imageUrl:
+        config["about.features.feature2.imageUrl"] || "/about/feature2-illustration.png",
       reverse: true,
     },
     {
@@ -144,7 +152,8 @@ export async function AboutFeatures({
       description: f3Desc,
       items: [{ text: f3Item1 }, { text: f3Item2 }, { text: f3Item3 }],
       imageColor: "#F8EACD",
-      imageUrl: config["about.features.feature3.imageUrl"] || undefined,
+      imageUrl:
+        config["about.features.feature3.imageUrl"] || "/about/feature3-illustration.png",
       reverse: false,
     },
   ];

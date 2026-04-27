@@ -37,10 +37,11 @@ export async function AboutTestimonial({
           <div className="flex flex-col items-center gap-4">
             <div className="relative w-[158px] h-[158px] rounded-full border-[2.469px] border-[rgba(0,0,0,0.08)] overflow-hidden">
               <Image
-                src={config["about.testimonial.avatarUrl"] || "/team/ceo-avatar.jpg"}
+                src={config["about.testimonial.avatarUrl"] || "/about/testimonial-avatar.png"}
                 alt={name}
                 fill
-                className="object-cover"
+                sizes="158px"
+                className="object-cover object-center"
               />
             </div>
             <div className="flex flex-col items-center font-poppins">

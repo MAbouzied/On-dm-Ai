@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
+import { CONTACT_MAP_LAT, CONTACT_MAP_LNG, CONTACT_MAP_ZOOM } from "@/lib/contact-map-location";
 
-const DEFAULT_LAT = 30.0444;
-const DEFAULT_LNG = 31.2357;
-const DEFAULT_ZOOM = 15;
+const DEFAULT_LAT = CONTACT_MAP_LAT;
+const DEFAULT_LNG = CONTACT_MAP_LNG;
+const DEFAULT_ZOOM = CONTACT_MAP_ZOOM;
 
 interface ContactMapProps {
   centerLat?: string;
