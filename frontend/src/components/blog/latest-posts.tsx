@@ -50,6 +50,7 @@ export function LatestPosts({ excludeSlug }: LatestPostsProps) {
     })(),
     imageColor: p.imageColor,
     href: `/blog/${p.slug}`,
+    locale,
   });
 
   if (loading || posts.length === 0) return null;

@@ -1,8 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import apiClient from "@/lib/api-client";
+import { ImageUpload } from "@/components/dashboard/image-upload";
+import { getPublicApiBaseUrl } from "@/lib/public-api-base";
+
+const PREVIEW_API_BASE = getPublicApiBaseUrl();
 
 interface SuccessPartnerRow {
   id: string;
@@ -28,7 +32,7 @@ export default function EditSuccessPartnerPage() {
   });
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
-  const [uploading, setUploading] = useState(false);
+  const logoFileInputId = useId();
 
   useEffect(() => {
     if (!isNew) {
@@ -48,29 +52,10 @@ export default function EditSuccessPartnerPage() {
     }
   }, [id, isNew]);
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setUploading(true);
-    try {
-      const fd = new FormData();
-      fd.append("image", file);
-      const res = await apiClient.post<{ urls: string[] }>("/api/upload", fd);
-      const url = res.data.urls[0];
-      if (url) setForm((f) => ({ ...f, logoUrl: url }));
-    } catch (err) {
-      console.error(err);
-      alert("Upload failed. Check file type (JPEG, PNG, WebP, SVG) and size (max 5MB).");
-    } finally {
-      setUploading(false);
-      e.target.value = "";
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.logoUrl.trim()) {
-      alert("Please upload a logo or enter a logo URL.");
+      alert("Please upload a logo.");
       return;
     }
     setSaving(true);
@@ -87,9 +72,33 @@ export default function EditSuccessPartnerPage() {
         await apiClient.put(`/api/success-partners/${id}`, payload);
       }
       router.push(`/${locale}/dashboard/success-partners`);
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
-      alert("Save failed.");
+      const ax = err as {
+        message?: string;
+        response?: { status?: number; data?: unknown };
+      };
+      let msg = "Save failed.";
+      if (ax.response?.data && typeof ax.response.data === "object" && "error" in ax.response.data) {
+        const e = (ax.response.data as { error: unknown }).error;
+        if (typeof e === "string") msg = e;
+        else if (e && typeof e === "object") {
+          const flat = e as { formErrors?: string[]; fieldErrors?: Record<string, string[] | undefined> };
+          if (flat.fieldErrors && Object.keys(flat.fieldErrors).length > 0) {
+            msg = Object.entries(flat.fieldErrors)
+              .map(([k, v]) => `${k}: ${(v ?? []).join(", ")}`)
+              .join("\n");
+          } else if (flat.formErrors?.length) msg = flat.formErrors.join("\n");
+          else msg = JSON.stringify(e);
+        }
+      } else if (ax.response?.status === 401 || ax.response?.status === 403) {
+        msg = "Session expired or not authorized. Log in again from the dashboard.";
+      } else if (ax.message) {
+        msg = ax.message.includes("Network Error")
+          ? "Cannot reach API. Check NEXT_PUBLIC_API_URL and that the backend is running."
+          : ax.message;
+      }
+      alert(msg);
     } finally {
       setSaving(false);
     }
@@ -111,33 +120,32 @@ export default function EditSuccessPartnerPage() {
   return (
     <div>
       <h1 className="mb-6 text-2xl font-bold">{isNew ? "Add success partner" : "Edit success partner"}</h1>
-      <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+      <form noValidate onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Logo file</label>
-          <input type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" onChange={handleUpload} className="mt-1 block w-full text-sm" />
-          {uploading ? <p className="mt-1 text-sm text-gray-500">Uploading…</p> : null}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Logo URL (set automatically after upload)</label>
-          <input
-            value={form.logoUrl}
-            onChange={(e) => setForm((f) => ({ ...f, logoUrl: e.target.value }))}
-            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 font-mono text-sm"
-            required
-            placeholder="https://… or /path-from-site"
-          />
-        </div>
-        {form.logoUrl ? (
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-            <p className="mb-2 text-xs font-medium uppercase text-gray-500">Preview</p>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={form.logoUrl} alt="" className="max-h-20 w-auto max-w-full object-contain" />
+          <label htmlFor={logoFileInputId} className="block text-sm font-medium text-gray-700">
+            Logo
+          </label>
+          <p className="mt-0.5 mb-1 text-xs text-gray-500">
+            PNG, WebP, JPEG, or SVG. Shown in the homepage marquee.
+          </p>
+          <div className="mt-1">
+            <ImageUpload
+              fileInputId={logoFileInputId}
+              fileInputName="successPartnerLogo"
+              value={form.logoUrl ? [form.logoUrl] : []}
+              onChange={(urls) => setForm((f) => ({ ...f, logoUrl: urls[0] ?? "" }))}
+              disabled={saving}
+              maxFiles={1}
+              baseUrlForPreviews={PREVIEW_API_BASE}
+            />
           </div>
-        ) : null}
+        </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Website URL (optional)</label>
           <input
-            type="url"
+            type="text"
+            inputMode="url"
+            autoComplete="url"
             value={form.websiteUrl}
             onChange={(e) => setForm((f) => ({ ...f, websiteUrl: e.target.value }))}
             className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2"

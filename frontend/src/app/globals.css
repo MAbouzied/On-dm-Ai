@@ -107,6 +107,65 @@
   --spacing: 0.25rem;
 }
 
+/* Success partners strip — loop geometry aligned with lms-core HomePartnersBlock:
+   two abutting sets, LTR isolate, zero gap on track, stride = measured (B.left − A.left). */
+@keyframes clients-marquee-loop {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(var(--clients-marquee-shift-px, -50%), 0, 0);
+  }
+}
+
+.clients-marquee-viewport {
+  container-type: inline-size;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.clients-marquee-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  column-gap: 0;
+  row-gap: 0;
+  width: max-content;
+  max-width: none;
+  margin: 0;
+  margin-inline: 0;
+  will-change: transform;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.clients-marquee-set {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.clients-marquee-track.clients-marquee-track--animate {
+  animation: clients-marquee-loop var(--clients-marquee-duration, 40s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clients-marquee-track.clients-marquee-track--animate {
+    animation: none;
+  }
+}
+
+.clients-marquee-viewport:hover .clients-marquee-track.clients-marquee-track--animate {
+  animation-play-state: paused;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

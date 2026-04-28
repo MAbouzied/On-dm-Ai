@@ -9,6 +9,9 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ondm}
       MYSQL_USER: ${MYSQL_USER:-ondm}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ondm_secure_pass_2024}
+    ports:
+      # Host dev: backend with DATABASE_URL @localhost:3306 can reach MySQL
+      - "3306:3306"
     volumes:
       - ondm_mysql_data:/var/lib/mysql
     networks:

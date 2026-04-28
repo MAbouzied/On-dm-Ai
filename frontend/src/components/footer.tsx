@@ -7,12 +7,11 @@ import apiClient from "@/lib/api-client";
 import {
   Facebook,
   Instagram,
-  X,
   Youtube,
   ArrowUpRight,
 } from "lucide-react";
 import { FOOTER_LINKS, SOCIAL_LINKS, type SocialLink, type SocialIconId } from "@/lib/constants";
-import { SnapchatBrandIcon, TikTokBrandIcon } from "@/components/social-brand-icons";
+import { SnapchatBrandIcon, TikTokBrandIcon, XBrandIcon } from "@/components/social-brand-icons";
 import Button from "./ui/Button";
 import ArrowUp from "@/icons/ArrowUp";
 import { useSiteConfig, getConfigEnAr } from "@/lib/site-config-context";
@@ -94,7 +93,7 @@ export function Footer() {
         return <SnapchatBrandIcon className={cls} />;
       case "x":
       case "twitter":
-        return <X className={cls} />;
+        return <XBrandIcon className={cls} />;
       default:
         return null;
     }
@@ -118,8 +117,6 @@ export function Footer() {
   const phoneLabel = getConfigEnAr(siteConfig, "footer.contactInfo.phoneLabel", locale, t("contactInfo.phoneLabel"));
   const locationLabel = getConfigEnAr(siteConfig, "footer.contactInfo.locationLabel", locale, t("contactInfo.locationLabel"));
   const followUsLabel = getConfigEnAr(siteConfig, "footer.contactInfo.followUsLabel", locale, t("contactInfo.followUsLabel"));
-  const address1 = getConfigEnAr(siteConfig, "footer.contactInfo.address1", locale, t("contactInfo.address1"));
-  const address2 = getConfigEnAr(siteConfig, "footer.contactInfo.address2", locale, t("contactInfo.address2"));
   const newsletterTitle = getConfigEnAr(siteConfig, "footer.newsletter.title", locale, t("newsletter.title"));
   const newsletterDescription = getConfigEnAr(siteConfig, "footer.newsletter.description", locale, t("newsletter.description"));
   const newsletterPlaceholder = getConfigEnAr(siteConfig, "footer.newsletter.placeholder", locale, t("newsletter.placeholder"));
@@ -217,10 +214,7 @@ export function Footer() {
                 {locationLabel}
               </span>
               <p className="text-black font-semibold max-w-50">
-                {(locale === "ar" ? contactConfig["contact.address1Ar"] : contactConfig["contact.address1En"]) || address1}
-              </p>
-              <p className="text-black font-semibold max-w-50">
-                {(locale === "ar" ? contactConfig["contact.address2Ar"] : contactConfig["contact.address2En"]) || address2}
+                {t("contactInfo.address")}
               </p>
             </div>
 

@@ -125,7 +125,7 @@ export function ServicesList({
                 variant="light"
                 BorderType="None"
               >
-                {t("filters.viewAll")}
+                {viewAll}
               </Button>
             </TabsTrigger>
             <TabsTrigger value="design" asChild>
@@ -134,7 +134,7 @@ export function ServicesList({
                 variant="light"
                 BorderType="None"
               >
-                {t("filters.design")}
+                {designLabel}
               </Button>
             </TabsTrigger>
             <TabsTrigger value="marketing" asChild>
@@ -143,7 +143,7 @@ export function ServicesList({
                 variant="light"
                 BorderType="None"
               >
-                {t("filters.marketing")}
+                {marketingLabel}
               </Button>
             </TabsTrigger>
             <TabsTrigger value="software" asChild>
@@ -152,7 +152,7 @@ export function ServicesList({
                 variant="light"
                 BorderType="None"
               >
-                {t("filters.software")}
+                {softwareLabel}
               </Button>
             </TabsTrigger>
           </TabsList>

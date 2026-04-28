@@ -355,6 +355,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
 export const TAG_COLORS: Record<string, string> = {
   Design: "bg-[#F3E5F5] text-[#9C27B0]",
   Marketing: "bg-[#FFF8E1] text-[#FF8F00]",
+  Branding: "bg-[#FFF8E1] text-[#FF8F00]",
   Software: "bg-[#E1F5FE] text-[#0288D1]",
   default: "bg-gray-100 text-gray-700",
 };

@@ -1,4 +1,5 @@
 import { getTagColor } from "@/lib/constants";
+import { blogTagDisplayLabel } from "@/lib/blog-tag-labels";
 import { cn } from "@/lib/utils";
 
 const COLOR_VARIANTS: Record<string, string> = {
@@ -47,16 +48,20 @@ export function Tag({ tag, children, color, className }: TagProps) {
 interface TagListProps {
   tags: string[];
   className?: string;
+  /** When `ar`, tag text uses Arabic labels; English keys stay for colors. */
+  locale?: string;
 }
 
 /**
  * Reusable tag list component
  */
-export function TagList({ tags, className }: TagListProps) {
+export function TagList({ tags, className, locale = "en" }: TagListProps) {
   return (
     <div className={cn("flex flex-wrap gap-2", className)}>
       {tags.map((tag, index) => (
-        <Tag key={index} tag={tag} />
+        <Tag key={index} tag={tag}>
+          {blogTagDisplayLabel(tag, locale)}
+        </Tag>
       ))}
     </div>
   );

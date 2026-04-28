@@ -5,17 +5,51 @@ import { ArrowUpRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { API_URL } from "@/lib/api";
 
+/** Per-card defaults when CMS has no images — distinct assets per sticky card */
 const FALLBACK_STYLES = [
-  { badge: "Web and App development", bgColor: "bg-white", textColor: "text-black", top: "top-4 md:top-32", shadow: "shadow-[0px_10px_30px_rgba(0,0,0,0.1)]", buttonColor: "bg-transparent", image: "/Dashboard v3 1.png" },
-  { badge: "Social media marketing", bgColor: "bg-[#D9F9F9]", textColor: "text-black", top: "top-8 md:top-36", shadow: "", buttonColor: "bg-transparent", image: "/Dashboard v3 1.png" },
-  { badge: "Operation management", bgColor: "bg-black", textColor: "text-white", top: "top-12 md:top-40", shadow: "", buttonColor: "bg-[#EBF7FF]!", image: "/Dashboard v3 1.png" },
+  {
+    badge: "Web and App development",
+    bgColor: "bg-white",
+    textColor: "text-black",
+    top: "top-4 md:top-32",
+    shadow: "shadow-[0px_10px_30px_rgba(0,0,0,0.1)]",
+    buttonColor: "bg-transparent",
+    image: "/work-card-dashboard.png",
+  },
+  {
+    badge: "Social media marketing",
+    bgColor: "bg-[#D9F9F9]",
+    textColor: "text-black",
+    top: "top-8 md:top-36",
+    shadow: "",
+    buttonColor: "bg-transparent",
+    image: "/work-card-collaboration.png",
+  },
+  {
+    badge: "Operation management",
+    bgColor: "bg-black",
+    textColor: "text-white",
+    top: "top-12 md:top-40",
+    shadow: "",
+    buttonColor: "bg-[#EBF7FF]!",
+    image: "/work-card-operations.png",
+  },
 ];
 
-function resolveImageUrl(project: { imageUrl?: string | null; imageUrls?: string | string[] | null }): string {
+function resolveImageUrl(
+  project: { imageUrl?: string | null; imageUrls?: string | string[] | null },
+  fallbackStatic: string
+): string {
   if (project.imageUrls) {
     const urls = Array.isArray(project.imageUrls)
       ? project.imageUrls
-      : (() => { try { return JSON.parse(project.imageUrls || "[]") || []; } catch { return []; } })();
+      : (() => {
+          try {
+            return JSON.parse(project.imageUrls || "[]") || [];
+          } catch {
+            return [];
+          }
+        })();
     const path = Array.isArray(urls) && urls[0] ? urls[0] : "";
     if (path) {
       const base = API_URL.replace(/\/$/, "");
@@ -27,7 +61,7 @@ function resolveImageUrl(project: { imageUrl?: string | null; imageUrls?: string
     const path = project.imageUrl;
     return path.startsWith("http") ? path : path.startsWith("/") ? `${base}${path}` : `${base}/${path}`;
   }
-  return "/Dashboard v3 1.png";
+  return fallbackStatic;
 }
 
 interface WorkContentProps {
@@ -43,7 +77,7 @@ export default async function WorkContent({ projects, locale }: WorkContentProps
       projectName: p ? (locale === "ar" ? p.titleAr : p.titleEn) : "ABAQ LEARNING",
       badge: p ? (p.descriptionEn || p.descriptionAr || style.badge) : style.badge,
       slug: p?.slug || "",
-      image: p ? resolveImageUrl(p) : style.image,
+      image: p ? resolveImageUrl(p, style.image) : style.image,
       ...style,
     };
   });

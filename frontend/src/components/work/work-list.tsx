@@ -8,13 +8,6 @@ import Button from "../ui/Button";
 import { API_URL } from "@/lib/api";
 import { getConfigEnAr } from "@/lib/site-config-context";
 
-const FILTERS = [
-  { id: "all", label: "View all services" },
-  { id: "design", label: "Design" },
-  { id: "marketing", label: "Marketing" },
-  { id: "software", label: "Software Solutions & Services" },
-];
-
 type ProjectTag = { label: string; color: "purple" | "orange" | "blue" };
 
 function parseTags(tagsStr: string | null | undefined): ProjectTag[] {
@@ -83,11 +76,43 @@ interface WorkListProps {
 export function WorkList({ projects, locale, config = {} }: WorkListProps) {
   const t = useTranslations("work");
   const tWorkCard = useTranslations("workCard");
+  const tFilters = useTranslations("servicesPage");
   const [activeFilter, setActiveFilter] = useState("all");
   const title = getConfigEnAr(config, "work.title", locale, t("title"));
   const subtitle = getConfigEnAr(config, "work.subtitle", locale, t("subtitle"));
   const seeFullProject = getConfigEnAr(config, "workCard.seeFullProject", locale, tWorkCard("seeFullProject"));
   const seeLiveChannels = getConfigEnAr(config, "workCard.seeLiveChannels", locale, tWorkCard("seeLiveChannels"));
+  const viewAllLabel = getConfigEnAr(
+    config,
+    "servicesPage.filters.viewAll",
+    locale,
+    tFilters("filters.viewAll")
+  );
+  const designLabel = getConfigEnAr(
+    config,
+    "servicesPage.filters.design",
+    locale,
+    tFilters("filters.design")
+  );
+  const marketingLabel = getConfigEnAr(
+    config,
+    "servicesPage.filters.marketing",
+    locale,
+    tFilters("filters.marketing")
+  );
+  const softwareLabel = getConfigEnAr(
+    config,
+    "servicesPage.filters.software",
+    locale,
+    tFilters("filters.software")
+  );
+
+  const filterTabs = [
+    { id: "all", label: viewAllLabel },
+    { id: "design", label: designLabel },
+    { id: "marketing", label: marketingLabel },
+    { id: "software", label: softwareLabel },
+  ];
 
   const filteredProjects = projects.filter((project) => {
     if (activeFilter === "all") return true;
@@ -108,7 +133,7 @@ export function WorkList({ projects, locale, config = {} }: WorkListProps) {
         {/* Filters */}
         <Tabs value={activeFilter} onValueChange={setActiveFilter}>
           <TabsList>
-            {FILTERS.map((filter) => (
+            {filterTabs.map((filter) => (
               <TabsTrigger key={filter.id} value={filter.id} asChild>
                 <Button
                   className="py-2! px-3! h-fit! rounded-2xl! shadow-none"

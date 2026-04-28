@@ -5,6 +5,12 @@ import Link from "next/link";
 import { useLocale } from "next-intl";
 import apiClient from "@/lib/api-client";
 import type { ConfigSection } from "@/lib/config-keys";
+import { ImageUpload } from "@/components/dashboard/image-upload";
+
+const PREVIEW_API_BASE =
+  process.env.NEXT_PUBLIC_API_URL !== undefined
+    ? process.env.NEXT_PUBLIC_API_URL
+    : "http://localhost:4000";
 
 interface SiteConfigFormProps {
   sections: ConfigSection[];
@@ -133,6 +139,16 @@ export function SiteConfigForm({ sections, title }: SiteConfigFormProps) {
                         onChange={(e) => updateConfig(field.key, e.target.value)}
                         placeholder="#000000"
                         className="flex-1 rounded-md border border-gray-300 px-3 py-2 font-mono text-sm"
+                      />
+                    </div>
+                  ) : field.type === "image" ? (
+                    <div className="mt-1">
+                      <ImageUpload
+                        value={config[field.key] ? [config[field.key]] : []}
+                        onChange={(urls) => updateConfig(field.key, urls[0] ?? "")}
+                        disabled={saving}
+                        maxFiles={1}
+                        baseUrlForPreviews={PREVIEW_API_BASE}
                       />
                     </div>
                   ) : field.type === "checkbox" ? (

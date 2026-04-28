@@ -1,11 +1,11 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useId, useState } from "react";
 import { X, Upload, GripVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
 import apiClient from "@/lib/api-client";
 
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/svg+xml"];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 const MAX_FILES = 10;
 
@@ -16,6 +16,12 @@ interface ImageUploadProps {
   className?: string;
   /** Base URL for previewing relative paths (e.g. /uploads/...) - prepended when url does not start with http */
   baseUrlForPreviews?: string;
+  /** Max images (default 10). Use 1 for a single photo/logo field. */
+  maxFiles?: number;
+  /** Use with an external `<label htmlFor={sameId}>` for a11y / browser Issues panel. */
+  fileInputId?: string;
+  /** Optional `name` on the hidden file input (avoids “form field should have a name” devtools noise). */
+  fileInputName?: string;
 }
 
 function resolvePreviewUrl(url: string, baseUrl?: string): string {
@@ -27,15 +33,27 @@ function resolvePreviewUrl(url: string, baseUrl?: string): string {
   return url;
 }
 
-export function ImageUpload({ value, onChange, disabled = false, className, baseUrlForPreviews }: ImageUploadProps) {
+export function ImageUpload({
+  value,
+  onChange,
+  disabled = false,
+  className,
+  baseUrlForPreviews,
+  maxFiles: maxFilesProp,
+  fileInputId: fileInputIdProp,
+  fileInputName = "imageUpload",
+}: ImageUploadProps) {
+  const generatedId = useId();
+  const inputId = fileInputIdProp ?? generatedId;
+  const maxFiles = maxFilesProp ?? MAX_FILES;
+  const single = maxFiles === 1;
   const [uploading, setUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState<Record<number, number>>({});
   const [error, setError] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
 
   const validateFile = (file: File): string | null => {
     if (!ALLOWED_TYPES.includes(file.type)) {
-      return `Invalid type: ${file.name}. Allowed: JPEG, PNG, WebP`;
+      return `Invalid type: ${file.name}. Allowed: JPEG, PNG, WebP, SVG`;
     }
     if (file.size > MAX_SIZE) {
       return `Too large: ${file.name}. Max 5MB per file`;
@@ -49,8 +67,8 @@ export function ImageUpload({ value, onChange, disabled = false, className, base
       if (fileArray.length === 0) return;
 
       const total = value.length + fileArray.length;
-      if (total > MAX_FILES) {
-        setError(`Maximum ${MAX_FILES} images allowed. You have ${value.length} and tried to add ${fileArray.length}.`);
+      if (total > maxFiles) {
+        setError(`Maximum ${maxFiles} image${maxFiles === 1 ? "" : "s"} allowed. You have ${value.length} and tried to add ${fileArray.length}.`);
         return;
       }
 
@@ -79,10 +97,9 @@ export function ImageUpload({ value, onChange, disabled = false, className, base
         setError(typeof msg === "string" ? msg : "Upload failed");
       } finally {
         setUploading(false);
-        setUploadProgress({});
       }
     },
-    [value, onChange]
+    [value, onChange, maxFiles]
   );
 
   const handleDrop = useCallback(
@@ -138,14 +155,15 @@ export function ImageUpload({ value, onChange, disabled = false, className, base
         )}
         onClick={() => {
           if (disabled || uploading) return;
-          document.getElementById("image-upload-input")?.click();
+          document.getElementById(inputId)?.click();
         }}
       >
         <input
-          id="image-upload-input"
+          id={inputId}
+          name={fileInputName}
           type="file"
-          accept="image/jpeg,image/png,image/webp"
-          multiple
+          accept="image/jpeg,image/png,image/webp,image/svg+xml"
+          multiple={maxFiles > 1}
           className="hidden"
           onChange={handleFileSelect}
           disabled={disabled || uploading}
@@ -159,7 +177,7 @@ export function ImageUpload({ value, onChange, disabled = false, className, base
               Drag and drop images, or click to select
             </p>
             <p className="mt-1 text-xs text-gray-500">
-              JPEG, PNG, WebP • Max 5MB each • Up to {MAX_FILES} images
+              JPEG, PNG, WebP, SVG • Max 5MB each • Up to {maxFiles} image{maxFiles === 1 ? "" : "s"}
             </p>
           </>
         )}
@@ -172,7 +190,9 @@ export function ImageUpload({ value, onChange, disabled = false, className, base
       {value.length > 0 && (
         <div className="mt-4 space-y-2">
           <p className="text-sm font-medium text-gray-700">
-            Images ({value.length}) — first image is used as hero
+            {single
+              ? "Uploaded image"
+              : `Images (${value.length}) — first image is used as hero`}
           </p>
           <div className="flex flex-wrap gap-3">
             {value.map((url, index) => (
@@ -217,7 +237,7 @@ export function ImageUpload({ value, onChange, disabled = false, className, base
                     </button>
                   )}
                 </div>
-                {index === 0 && (
+                {!single && index === 0 && (
                   <span className="absolute -top-1 -right-1 rounded bg-gray-900 px-1.5 py-0.5 text-xs text-white">
                     Hero
                   </span>

@@ -5,6 +5,7 @@ import { BlogPostContent, ContentBlock } from "@/components/blog/blog-post-conte
 import { BlogPostAuthor } from "@/components/blog/blog-post-author";
 import { LatestPosts } from "@/components/blog/latest-posts";
 import { getPublicBlogPost } from "@/lib/api";
+import { blogTagDisplayLabel } from "@/lib/blog-tag-labels";
 
 interface BlogPostPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -30,7 +31,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     try {
       const arr = JSON.parse(post.tags) as string[];
       const colors: ("purple" | "orange" | "blue")[] = ["purple", "orange", "blue"];
-      return arr.map((label, i) => ({ label, color: colors[i % 3] }));
+      return arr.map((rawLabel, i) => ({
+        label: blogTagDisplayLabel(rawLabel, locale),
+        color: colors[i % 3],
+      }));
     } catch {
       return [];
     }

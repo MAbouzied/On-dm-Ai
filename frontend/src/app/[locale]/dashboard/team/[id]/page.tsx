@@ -3,6 +3,12 @@
 import { useEffect, useState } from "react";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import apiClient from "@/lib/api-client";
+import { ImageUpload } from "@/components/dashboard/image-upload";
+
+const PREVIEW_API_BASE =
+  process.env.NEXT_PUBLIC_API_URL !== undefined
+    ? process.env.NEXT_PUBLIC_API_URL
+    : "http://localhost:4000";
 
 interface TeamMember {
   id: string;
@@ -144,12 +150,17 @@ export default function EditTeamPage() {
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Photo URL</label>
-          <input
-            value={form.photoUrl}
-            onChange={(e) => setForm((f) => ({ ...f, photoUrl: e.target.value }))}
-            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2"
-          />
+          <label className="block text-sm font-medium text-gray-700">Photo</label>
+          <p className="mt-0.5 mb-1 text-xs text-gray-500">Upload a headshot (optional).</p>
+          <div className="mt-1">
+            <ImageUpload
+              value={form.photoUrl ? [form.photoUrl] : []}
+              onChange={(urls) => setForm((f) => ({ ...f, photoUrl: urls[0] ?? "" }))}
+              disabled={saving}
+              maxFiles={1}
+              baseUrlForPreviews={PREVIEW_API_BASE}
+            />
+          </div>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Sort Order</label>

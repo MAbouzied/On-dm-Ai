@@ -14,6 +14,7 @@ interface BlogCardProps {
   imageUrl?: string;
   layout?: "vertical" | "horizontal";
   href?: string;
+  locale?: string;
 }
 
 export function BlogCard({
@@ -26,6 +27,7 @@ export function BlogCard({
   imageUrl,
   layout = "vertical",
   href = "/blog/post-slug",
+  locale = "en",
 }: BlogCardProps) {
   const isVertical = layout === "vertical";
 
@@ -74,7 +76,7 @@ export function BlogCard({
           </p>
         </div>
 
-        <TagList tags={tags} className="mt-4" />
+        <TagList tags={tags} className="mt-4" locale={locale} />
       </div>
     </LocalizedLink>
   );

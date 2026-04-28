@@ -1,5 +1,8 @@
+import { createRequire } from "node:module";
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
+
+const require = createRequire(import.meta.url);
 
 const eslintConfig = defineConfig([
   ...nextVitals,

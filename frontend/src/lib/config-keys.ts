@@ -6,7 +6,7 @@
 export interface ConfigField {
   key: string;
   label: string;
-  type?: "text" | "textarea" | "color" | "url" | "checkbox";
+  type?: "text" | "textarea" | "color" | "url" | "checkbox" | "image";
 }
 
 export interface ConfigSection {
@@ -293,7 +293,7 @@ export const SITE_CONFIG_SECTIONS: Record<string, ConfigSection[]> = {
         ...enArField("about.testimonial.quote", "Quote"),
         ...enArField("about.testimonial.name", "Name"),
         ...enArField("about.testimonial.role", "Role"),
-        { key: "about.testimonial.avatarUrl", label: "Avatar URL", type: "url" },
+        { key: "about.testimonial.avatarUrl", label: "Avatar", type: "image" },
       ],
     },
     {
@@ -306,19 +306,19 @@ export const SITE_CONFIG_SECTIONS: Record<string, ConfigSection[]> = {
         ...enArField("about.features.feature1.item1", "Feature 1 Item 1"),
         ...enArField("about.features.feature1.item2", "Feature 1 Item 2"),
         ...enArField("about.features.feature1.item3", "Feature 1 Item 3"),
-        { key: "about.features.feature1.imageUrl", label: "Feature 1 Image URL", type: "url" },
+        { key: "about.features.feature1.imageUrl", label: "Feature 1 image", type: "image" },
         ...enArField("about.features.feature2.title", "Feature 2 Title"),
         ...enArField("about.features.feature2.description", "Feature 2 Description"),
         ...enArField("about.features.feature2.item1", "Feature 2 Item 1"),
         ...enArField("about.features.feature2.item2", "Feature 2 Item 2"),
         ...enArField("about.features.feature2.item3", "Feature 2 Item 3"),
-        { key: "about.features.feature2.imageUrl", label: "Feature 2 Image URL", type: "url" },
+        { key: "about.features.feature2.imageUrl", label: "Feature 2 image", type: "image" },
         ...enArField("about.features.feature3.title", "Feature 3 Title"),
         ...enArField("about.features.feature3.description", "Feature 3 Description"),
         ...enArField("about.features.feature3.item1", "Feature 3 Item 1"),
         ...enArField("about.features.feature3.item2", "Feature 3 Item 2"),
         ...enArField("about.features.feature3.item3", "Feature 3 Item 3"),
-        { key: "about.features.feature3.imageUrl", label: "Feature 3 Image URL", type: "url" },
+        { key: "about.features.feature3.imageUrl", label: "Feature 3 image", type: "image" },
       ],
     },
     {

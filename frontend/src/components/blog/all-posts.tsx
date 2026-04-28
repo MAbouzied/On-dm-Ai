@@ -48,6 +48,7 @@ export function AllPosts() {
     imageColor: p.imageColor,
     imageUrl: p.imageUrls?.[0] ?? p.imageUrl ?? undefined,
     href: `/blog/${p.slug}`,
+    locale,
   });
 
   if (loading) return <div className="py-12 text-center">Loading...</div>;

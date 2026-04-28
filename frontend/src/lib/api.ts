@@ -1,7 +1,6 @@
-export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL !== undefined
-    ? process.env.NEXT_PUBLIC_API_URL
-    : "http://localhost:4000";
+import { getPublicApiBaseUrl } from "./public-api-base";
+
+export const API_URL = getPublicApiBaseUrl();
 
 const isDev = process.env.NODE_ENV === "development";
 const fetchOpts = isDev ? { cache: "no-store" as RequestCache } : { next: { revalidate: 60 } };

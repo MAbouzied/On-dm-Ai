@@ -22,7 +22,8 @@ export function LayoutWrapper({
   return (
     <SiteConfigContext.Provider value={siteConfig}>
       <Header />
-      <main className="pb-40">{children}</main>
+      {/* Use div here: each page already renders its own single <main> landmark. */}
+      <div className="pb-40">{children}</div>
       <Footer />
     </SiteConfigContext.Provider>
   );
