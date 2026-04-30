@@ -1,5 +1,5 @@
 # Build stage
-FROM node:20-alpine AS builder
+FROM node:24-alpine AS builder
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ RUN npx prisma generate
 RUN npm run build
 
 # Production stage
-FROM node:20-alpine AS production
+FROM node:24-alpine AS production
 
 WORKDIR /app
 
@@ -30,6 +30,9 @@ RUN npm install --omit=dev
 # Copy Prisma schema and generate client
 COPY prisma ./prisma
 RUN npx prisma generate
+
+# Copy scripts for administrative tasks
+COPY scripts ./scripts
 
 # Copy built files from builder
 COPY --from=builder /app/dist ./dist

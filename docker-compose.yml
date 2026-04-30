@@ -25,6 +25,7 @@ services:
 
   # Backend API
   ondm-backend:
+    image: ghcr.io/on-dm/fullstack-backend:latest
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -55,6 +56,7 @@ services:
 
   # Frontend
   ondm-frontend:
+    image: ghcr.io/on-dm/fullstack-frontend:latest
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -69,6 +71,10 @@ services:
       - NODE_ENV=production
       - NEXT_PUBLIC_API_URL=https://api.on-dm.com
       - NEXT_PUBLIC_SITE_URL=https://staging.on-dm.com
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+    extra_hosts:
+      - "api.on-dm.com:host-gateway"
+      - "staging.on-dm.com:host-gateway"
     depends_on:
       - ondm-backend
     networks:
