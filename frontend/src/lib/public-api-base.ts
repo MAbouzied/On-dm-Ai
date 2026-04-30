@@ -5,6 +5,7 @@
  */
 export function getPublicApiBaseUrl(): string {
   const raw = process.env.NEXT_PUBLIC_API_URL?.trim();
-  if (!raw) return "http://localhost:4000";
+  // Fallback to production domain — never use localhost in case env var is missing
+  if (!raw) return "https://api.on-dm.com";
   return raw.replace(/\/$/, "");
 }
