@@ -158,7 +158,10 @@
       "services": "Services",
       "work": "Work",
       "blog": "Blog",
-      "contactUs": "Contact Us"
+      "contactUs": "Contact Us",
+      "terms": "Terms & Conditions",
+      "privacy": "Privacy Policy",
+      "refundPolicy": "Refund Policy"
     },
     "copyright": "© All Rights Reserved @ <span>ON DM 2024</span>"
   },
@@ -289,5 +292,144 @@
   },
   "contactMap": {
     "loading": "Loading map..."
+  },
+  "lmsPlatform": {
+    "meta": {
+      "title": "ON-DM LMS Platform",
+      "description": "NELC-ready, bilingual LMS for Saudi training providers — courses, payments, certificates, and operations in one white-label platform."
+    },
+    "nav": {
+      "productName": "LMS Platform",
+      "platform": "Platform",
+      "features": "Features",
+      "faq": "FAQ",
+      "bookDemo": "Book a Demo",
+      "ariaMain": "Product page",
+      "ariaMobile": "Product page sections",
+      "ariaOpenMenu": "Open menu",
+      "ariaCloseMenu": "Close menu"
+    },
+    "hero": {
+      "badge": "NELC-aligned · Saudi-ready",
+      "title": "A learning platform built for Saudi training operations",
+      "subtitle": "Built for Saudi training providers who are done patching tools together. NELC-ready, bilingual, and wired for real operations",
+      "primaryCta": "Book a Demo",
+      "secondaryCta": "View platform features"
+    },
+    "featureLead": {
+      "leadTitle": "Lead with NELC integration — not just another LMS.",
+      "leadPoint1": "Certificate issuance, completion records, and audit trails designed around regulated training workflows.",
+      "leadPoint2": "Connect learner progress to eligibility and reporting expectations without duct-taping spreadsheets.",
+      "leadPoint3": "One platform for bilingual delivery, payments, and owner-level visibility.",
+      "pillar1Title": "Faster learner onboarding",
+      "pillar1Desc": "Reduce friction from signup to first lesson with guided paths and clear access control.",
+      "pillar2Title": "Operational throughput",
+      "pillar2Desc": "Coordinate cohorts, content updates, and support without losing context across teams.",
+      "pillar3Title": "Certificates as standard",
+      "pillar3Desc": "Controlled issuance and history learners and regulators can trust.",
+      "pillar4Title": "Reliability at scale",
+      "pillar4Desc": "Built for steady traffic, live sessions, and peak enrollment windows."
+    },
+    "capabilities": {
+      "title": "Not a course player — a commercial training platform",
+      "subtitle": "Everything your training business needs to sell, deliver, and operate in one place.",
+      "multiFormat": {
+        "title": "Multi-format courses",
+        "body": "Sell single courses, diploma tracks, and bundled learning paths with professional product pages and smart conversion flows."
+      },
+      "saudiPayment": {
+        "title": "Saudi payment stack",
+        "body": "Accept Mada, local card schemes, Apple Pay, STC Pay, and bank transfers with SAR pricing, VAT-aware receipts, and reconciliation workflows built for Saudi training businesses."
+      },
+      "nelc": {
+        "title": "NELC & xAPI compliance",
+        "body": "Issue certificates through a controlled pipeline, persist completion records, and connect learner data to NELC/FutureX eligibility flows."
+      },
+      "cohort": {
+        "title": "Live & cohort delivery",
+        "body": "Run scheduled cohorts, live sessions, and self-paced tracks — all in one white-label platform your team controls."
+      },
+      "arabicFirst": {
+        "title": "Arabic-first experience",
+        "body": "Full RTL UI, Arabic + English bilingual delivery, and nationality-aware onboarding logic built in from day one."
+      },
+      "analytics": {
+        "title": "Reporting & dashboards",
+        "body": "Track enrollments, payments, completion rates, course performance, and learner activity from one operational dashboard."
+      }
+    },
+    "personas": {
+      "title": "Built for operations, not just demos",
+      "subtitle": "Give each team a clear view of what matters day to day.",
+      "operationsTitle": "Operations & support",
+      "operationsIntro": "Monitor enrollments, sessions, and learner issues from one control surface.",
+      "operationsItem1": "Queue and resolve access, payment, and progress exceptions with full history.",
+      "operationsItem2": "Coordinate cohort schedules, instructors, and content releases without email chains.",
+      "operationsItem3": "Standard operating procedures baked into roles, permissions, and audit trails.",
+      "operationsItem4": "Support bilingual learners with consistent messaging and RTL-ready UI.",
+      "revenueTitle": "Management & revenue",
+      "revenueIntro": "See revenue, fulfillment, and funnel performance without exporting to BI tools.",
+      "revenueItem1": "Track catalog performance, bundles, and promotions with clear attribution.",
+      "revenueItem2": "Reconcile bank transfers and gateway payments against orders automatically.",
+      "revenueItem3": "Forecast cohort fill rates and capacity with operational dashboards.",
+      "revenueItem4": "Report to owners with trustworthy numbers — not spreadsheet snapshots."
+    },
+    "metrics": {
+      "title": "Why teams consolidate on one platform",
+      "subtitle": "Qualitative outcomes teams target when they stop stitching tools together.",
+      "bar1Label": "Faster launch readiness",
+      "bar2Label": "Lower operational fragmentation",
+      "bar3Label": "Fewer manual admin workflows",
+      "disclaimer": "Illustrative emphasis — not a statistical survey of all customers."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "Quick answers before you request a demo.",
+      "supportTitle": "Still have questions?",
+      "supportBody": "Can't find the answer you're looking for? Reach out — we'll connect you with the LMS team.",
+      "supportCta": "Get in touch",
+      "expand": "Expand",
+      "collapse": "Collapse",
+      "q1": "Is the platform suitable for training centers in Saudi Arabia?",
+      "a1": "Yes. It is built for training centers that need course management, enrollment, payments, certificates, and reporting in one experience suited to the Saudi market.",
+      "q2": "Does the platform align with National eLearning Center (eLC / formerly NELC) expectations?",
+      "a2": "The platform includes proven technical readiness around organizing course data, learner records, completions, certificates, and reporting aligned with Saudi e-learning operating expectations. It does not constitute formal legal accreditation unless issued by the competent authority.",
+      "q3": "Can we run the platform with our center's branding?",
+      "a3": "Yes. You can tailor the platform with your identity, colors, pages, and UX that matches your brand.",
+      "q4": "Does the platform support Arabic and English?",
+      "a4": "Yes. It supports Arabic and English experiences, including proper RTL UI for Arabic-speaking learners in Saudi Arabia.",
+      "q5": "Can we manage payments inside the platform?",
+      "a5": "Yes. You can connect payments and organize orders and receipts to fit how your center operates."
+    },
+    "finalCta": {
+      "title": "Ready to run a Saudi-ready LMS — not another generic stack?",
+      "body": "Start with NELC readiness, add Saudi payment flows, and give your learners a bilingual platform they'll actually complete. Launch in days, not months.",
+      "primaryCta": "Book a Demo",
+      "secondaryCta": "View platform features",
+      "contactHint": "Prefer email? Reach us through the contact page — we’ll route you to the LMS team."
+    },
+    "stickyCta": {
+      "prompt": "Start a free discovery chat",
+      "whatsapp": "WhatsApp Us"
+    },
+    "footer": {
+      "builtBy": "Built by ON-DM",
+      "about": "About",
+      "contact": "Contact",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "refund": "Refunds"
+    },
+    "saudiSection": {
+      "eyebrow": "Built for the Saudi market",
+      "title": "A platform tuned for how Saudi training centers operate",
+      "subtitle": "From enrollment and payments to certificates and reporting, ON-DM is designed to reduce manual work and unify operations in one professional experience.",
+      "point1Title": "Your center's identity",
+      "point1Body": "A platform under your name and colors that gives learners a professional experience from the first visit.",
+      "point2Title": "Smoother daily operations",
+      "point2Body": "Manage courses, trainers, learners, sessions, and payments from one dashboard.",
+      "point3Title": "Operational & technical readiness",
+      "point3Body": "A structure that helps you organize records and data in line with e-learning expectations in Saudi Arabia."
+    }
   }
 }

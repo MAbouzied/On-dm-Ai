@@ -1,0 +1,92 @@
+key,english_text
+lmsPlatform.meta.title,ON-DM LMS Platform
+lmsPlatform.meta.description,"NELC-ready, bilingual LMS for Saudi training providers — courses, payments, certificates, and operations in one white-label platform."
+lmsPlatform.nav.productName,LMS Platform
+lmsPlatform.nav.platform,Platform
+lmsPlatform.nav.features,Features
+lmsPlatform.nav.faq,FAQ
+lmsPlatform.nav.bookDemo,Book a Demo
+lmsPlatform.nav.ariaMain,Product page
+lmsPlatform.nav.ariaMobile,Product page sections
+lmsPlatform.nav.ariaOpenMenu,Open menu
+lmsPlatform.nav.ariaCloseMenu,Close menu
+lmsPlatform.hero.badge,NELC-aligned · Saudi-ready
+lmsPlatform.hero.title,A learning platform built for Saudi training operations
+lmsPlatform.hero.subtitle,"Built for Saudi training providers who are done patching tools together. NELC-ready, bilingual, and wired for real operations"
+lmsPlatform.hero.primaryCta,Book a Demo
+lmsPlatform.hero.secondaryCta,View platform features
+lmsPlatform.featureLead.leadTitle,Lead with NELC integration — not just another LMS.
+lmsPlatform.featureLead.leadPoint1,"Certificate issuance, completion records, and audit trails designed around regulated training workflows."
+lmsPlatform.featureLead.leadPoint2,Connect learner progress to eligibility and reporting expectations without duct-taping spreadsheets.
+lmsPlatform.featureLead.leadPoint3,"One platform for bilingual delivery, payments, and owner-level visibility."
+lmsPlatform.featureLead.pillar1Title,Faster learner onboarding
+lmsPlatform.featureLead.pillar1Desc,Reduce friction from signup to first lesson with guided paths and clear access control.
+lmsPlatform.featureLead.pillar2Title,Operational throughput
+lmsPlatform.featureLead.pillar2Desc,"Coordinate cohorts, content updates, and support without losing context across teams."
+lmsPlatform.featureLead.pillar3Title,Certificates as standard
+lmsPlatform.featureLead.pillar3Desc,Controlled issuance and history learners and regulators can trust.
+lmsPlatform.featureLead.pillar4Title,Reliability at scale
+lmsPlatform.featureLead.pillar4Desc,"Built for steady traffic, live sessions, and peak enrollment windows."
+lmsPlatform.capabilities.title,Not a course player — a commercial training platform
+lmsPlatform.capabilities.subtitle,"Everything your training business needs to sell, deliver, and operate in one place."
+lmsPlatform.capabilities.multiFormat.title,Multi-format courses
+lmsPlatform.capabilities.multiFormat.body,"Sell single courses, diploma tracks, and bundled learning paths with professional product pages and smart conversion flows."
+lmsPlatform.capabilities.saudiPayment.title,Saudi payment stack
+lmsPlatform.capabilities.saudiPayment.body,"Accept Mada, local card schemes, Apple Pay, STC Pay, and bank transfers with SAR pricing, VAT-aware receipts, and reconciliation workflows built for Saudi training businesses."
+lmsPlatform.capabilities.nelc.title,NELC & xAPI compliance
+lmsPlatform.capabilities.nelc.body,"Issue certificates through a controlled pipeline, persist completion records, and connect learner data to NELC/FutureX eligibility flows."
+lmsPlatform.capabilities.cohort.title,Live & cohort delivery
+lmsPlatform.capabilities.cohort.body,"Run scheduled cohorts, live sessions, and self-paced tracks — all in one white-label platform your team controls."
+lmsPlatform.capabilities.arabicFirst.title,Arabic-first experience
+lmsPlatform.capabilities.arabicFirst.body,"Full RTL UI, Arabic + English bilingual delivery, and nationality-aware onboarding logic built in from day one."
+lmsPlatform.capabilities.adminHub.title,Admin operations hub
+lmsPlatform.capabilities.adminHub.body,"Orders, bank transfer review, content management, homework grading, and owner-level reporting — one system, no spreadsheets."
+lmsPlatform.personas.title,"Built for operations, not just demos"
+lmsPlatform.personas.subtitle,Give each team a clear view of what matters day to day.
+lmsPlatform.personas.operationsTitle,Operations & support
+lmsPlatform.personas.operationsIntro,"Monitor enrollments, sessions, and learner issues from one control surface."
+lmsPlatform.personas.operationsItem1,"Queue and resolve access, payment, and progress exceptions with full history."
+lmsPlatform.personas.operationsItem2,"Coordinate cohort schedules, instructors, and content releases without email chains."
+lmsPlatform.personas.operationsItem3,"Standard operating procedures baked into roles, permissions, and audit trails."
+lmsPlatform.personas.operationsItem4,Support bilingual learners with consistent messaging and RTL-ready UI.
+lmsPlatform.personas.revenueTitle,Management & revenue
+lmsPlatform.personas.revenueIntro,"See revenue, fulfillment, and funnel performance without exporting to BI tools."
+lmsPlatform.personas.revenueItem1,"Track catalog performance, bundles, and promotions with clear attribution."
+lmsPlatform.personas.revenueItem2,Reconcile bank transfers and gateway payments against orders automatically.
+lmsPlatform.personas.revenueItem3,Forecast cohort fill rates and capacity with operational dashboards.
+lmsPlatform.personas.revenueItem4,Report to owners with trustworthy numbers — not spreadsheet snapshots.
+lmsPlatform.metrics.title,Why teams consolidate on one platform
+lmsPlatform.metrics.subtitle,Qualitative outcomes teams target when they stop stitching tools together.
+lmsPlatform.metrics.bar1Label,Faster launch readiness
+lmsPlatform.metrics.bar2Label,Lower operational fragmentation
+lmsPlatform.metrics.bar3Label,Fewer manual admin workflows
+lmsPlatform.metrics.disclaimer,Illustrative emphasis — not a statistical survey of all customers.
+lmsPlatform.faq.title,Frequently asked questions
+lmsPlatform.faq.subtitle,"Straight answers about delivery, compliance, and rollout."
+lmsPlatform.faq.supportTitle,Still have questions?
+lmsPlatform.faq.supportBody,Can't find the answer you're looking for? Reach out — we'll connect you with the LMS team.
+lmsPlatform.faq.supportCta,Get in touch
+lmsPlatform.faq.expand,Expand
+lmsPlatform.faq.collapse,Collapse
+lmsPlatform.faq.q1,Is this only a content player?
+lmsPlatform.faq.a1,"No. ON-DM LMS Platform covers catalog and checkout, bilingual delivery, cohort and live sessions, certificates, payments, and back-office operations — not just SCORM playback."
+lmsPlatform.faq.q2,How does NELC readiness work in practice?
+lmsPlatform.faq.a2,"You get structured completion records, certificate controls, and data handoffs aligned to how regulated programs expect evidence — configured with your compliance stakeholders."
+lmsPlatform.faq.q3,Which Saudi payment methods are supported?
+lmsPlatform.faq.a3,The stack is built around common Saudi methods — including Mada and popular wallets — with SAR pricing and reconciliation paths suited to training businesses.
+lmsPlatform.faq.q4,Can we run Arabic and English side by side?
+lmsPlatform.faq.a4,"Yes. RTL UI, bilingual catalogs, and learner journeys are first-class — not an afterthought translation layer."
+lmsPlatform.faq.q5,How fast can we launch?
+lmsPlatform.faq.a5,"Most teams start with a focused catalog and branding, then expand modules. Timelines depend on content readiness — the goal is days-to-weeks for first production cohorts, not multi-quarter replatforming."
+lmsPlatform.faq.q6,Who is the platform for?
+lmsPlatform.faq.a6,"Training providers and institutes that sell regulated or professional programs in Saudi Arabia and need one system for revenue, delivery, and operations."
+lmsPlatform.finalCta.title,Ready to run a Saudi-ready LMS — not another generic stack?
+lmsPlatform.finalCta.body,"Start with NELC readiness, add Saudi payment flows, and give your learners a bilingual platform they'll actually complete. Launch in days, not months."
+lmsPlatform.finalCta.primaryCta,Book a Demo
+lmsPlatform.finalCta.secondaryCta,View platform features
+lmsPlatform.finalCta.contactHint,Prefer email? Reach us through the contact page — we’ll route you to the LMS team.
+lmsPlatform.stickyCta.prompt,Start a free discovery chat
+lmsPlatform.stickyCta.whatsapp,WhatsApp Us
+lmsPlatform.footer.builtBy,Built by ON-DM
+lmsPlatform.footer.about,About
+lmsPlatform.footer.contact,Contact

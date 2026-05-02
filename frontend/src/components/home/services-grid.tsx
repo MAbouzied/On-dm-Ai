@@ -37,7 +37,7 @@ export async function ServicesGrid({ locale = "en" }: { locale?: string }) {
   }
 
   return (
-    <section className="w-full pb-20 mx-auto container">
+    <section className="w-full mx-auto container">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         {services.map((service: { id: string; slug: string; titleEn: string; titleAr: string; backgroundColor: string; isDark?: boolean }) => {
           const config = SLUG_CONFIG[service.slug] || {

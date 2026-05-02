@@ -322,6 +322,12 @@ export const FOOTER_LINKS: FooterLink[] = [
   { href: "/contact", labelKey: "contactUs" },
 ];
 
+export const FOOTER_LEGAL_LINKS: FooterLink[] = [
+  { href: "/terms", labelKey: "terms" },
+  { href: "/privacy", labelKey: "privacy" },
+  { href: "/refund-policy", labelKey: "refundPolicy" },
+];
+
 // ============================================
 // Social Links
 // ============================================

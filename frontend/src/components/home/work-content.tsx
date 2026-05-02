@@ -11,7 +11,7 @@ const FALLBACK_STYLES = [
     badge: "Web and App development",
     bgColor: "bg-white",
     textColor: "text-black",
-    top: "top-4 md:top-32",
+    top: "top-24 md:top-32",
     shadow: "shadow-[0px_10px_30px_rgba(0,0,0,0.1)]",
     buttonColor: "bg-transparent",
     image: "/work-card-dashboard.png",
@@ -20,7 +20,7 @@ const FALLBACK_STYLES = [
     badge: "Social media marketing",
     bgColor: "bg-[#D9F9F9]",
     textColor: "text-black",
-    top: "top-8 md:top-36",
+    top: "top-28 md:top-36",
     shadow: "",
     buttonColor: "bg-transparent",
     image: "/work-card-collaboration.png",
@@ -29,7 +29,7 @@ const FALLBACK_STYLES = [
     badge: "Operation management",
     bgColor: "bg-black",
     textColor: "text-white",
-    top: "top-12 md:top-40",
+    top: "top-32 md:top-40",
     shadow: "",
     buttonColor: "bg-[#EBF7FF]!",
     image: "/work-card-operations.png",
@@ -83,8 +83,8 @@ export default async function WorkContent({ projects, locale }: WorkContentProps
   });
 
   return (
-    <div className="relative pb-[50px]">
-      <div className="container relative flex flex-col gap-10">
+    <div className="relative w-full pb-[50px]">
+      <div className="container relative flex w-full flex-col gap-10 px-4 md:px-8">
         {cards.map((item, index) => (
           <div
             key={index}

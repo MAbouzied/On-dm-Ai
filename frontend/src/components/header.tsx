@@ -98,9 +98,9 @@ export function Header() {
   }, [pathname]);
 
   return (
-    <div className="flex items-center justify-center ">
-      <header className="w-full pt-6 top-0 md:top-2 px-4 pointer-events-none mx-auto   md:fixed z-50 ">
-        <div className="container h-[40px] md:h-20 pr-3 pl-4 md:px-8 top-0 left-0 bg-transparent backdrop-blur-[0px] md:bg-white/80 rounded-full md:border md:border-[#E8E8E8] flex items-center justify-between p-2 pl-6 pointer-events-auto md:backdrop-blur-[8.8px]">
+    <div className="fixed top-0 left-0 right-0 z-50 flex min-h-[64px] items-center justify-center bg-white/80 backdrop-blur-[8.8px] px-4 py-2 md:min-h-0 md:bg-transparent md:backdrop-blur-none md:px-4 md:py-2">
+      <header className="relative flex w-full max-w-full justify-center pointer-events-none">
+        <div className="container flex h-[40px] md:h-20 w-full max-w-full pr-3 pl-4 md:px-8 top-0 left-0 bg-transparent backdrop-blur-[0px] md:bg-white/80 rounded-full md:border md:border-[#E8E8E8] items-center justify-between p-2 pl-6 pointer-events-auto md:backdrop-blur-[8.8px]">
           <LocalizedLink href="/">
             <Image
               src="/logo.svg"

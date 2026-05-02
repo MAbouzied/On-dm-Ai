@@ -20,7 +20,7 @@ export function ServicesIntro({
   const knowMoreHref = config["servicesIntro.knowMoreHref"] || "/services";
 
   return (
-    <section className="w-full py-20 px-4 md:px-8 max-w-4xl mx-auto text-center flex flex-col items-center">
+    <section className="w-full pt-20 pb-0 md:py-20 px-4 md:px-8 max-w-4xl mx-auto text-center flex flex-col items-center">
       <Badge>{badge}</Badge>
 
       <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black tracking-tight">

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>LMS favicon proof (same asset as tab)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: #e8e8e8;
+    }
+    .caption { font-size: 13px; color: #333; margin-bottom: 12px; max-width: 720px; line-height: 1.5; }
+    .chrome {
+      background: #dee1e6;
+      border-radius: 8px 8px 0 0;
+      padding: 8px 8px 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      max-width: 720px;
+    }
+    .tab-strip {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+    }
+    .tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border-radius: 8px 8px 0 0;
+      padding: 10px 14px 10px 12px;
+      min-width: 220px;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+      font-size: 12px;
+      color: #202124;
+    }
+    .tab img {
+      width: 16px;
+      height: 16px;
+      image-rendering: pixelated;
+      flex-shrink: 0;
+    }
+    .page {
+      background: #fff;
+      border-radius: 0 0 8px 8px;
+      min-height: 120px;
+      padding: 16px;
+      font-size: 13px;
+      color: #5f6368;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .large {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .large img {
+      width: 96px;
+      height: 96px;
+      image-rendering: pixelated;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <p class="caption">
+    <strong>Proof:</strong> The 16×16 image in the fake tab below is <code>/lms-platform/icon.png</code> — the same file referenced by
+    <code>&lt;link rel="icon" href="/lms-platform/icon.png?v=lms1"&gt;</code> on <code>/[locale]/lms-platform</code>.
+    Large preview is the same file scaled up (pixelated).
+  </p>
+  <div class="chrome">
+    <div class="tab-strip">
+      <div class="tab">
+        <img src="/lms-platform/icon.png?v=lms1" width="16" height="16" alt="" />
+        <span>ON-DM LMS Platform</span>
+      </div>
+    </div>
+    <div class="page">Page content area (simulated). Open the real URL in Chrome to see this icon in the actual tab.</div>
+  </div>
+  <div class="large">
+    <img src="/lms-platform/icon.png?v=lms1" width="96" height="96" alt="Same icon, enlarged" />
+    <div>
+      <div><strong>Same file</strong> as <code>/lms-platform/icon.png</code> (tab favicon).</div>
+    </div>
+  </div>
+</body>
+</html>

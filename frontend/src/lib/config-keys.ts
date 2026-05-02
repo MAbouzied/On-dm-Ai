@@ -204,6 +204,9 @@ export const SITE_CONFIG_SECTIONS: Record<string, ConfigSection[]> = {
         ...enArField("footer.nav.work", "Work"),
         ...enArField("footer.nav.blog", "Blog"),
         ...enArField("footer.nav.contactUs", "Contact Us"),
+        ...enArField("footer.nav.terms", "Terms & Conditions"),
+        ...enArField("footer.nav.privacy", "Privacy Policy"),
+        ...enArField("footer.nav.refundPolicy", "Refund Policy"),
       ],
     },
     {

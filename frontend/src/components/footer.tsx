@@ -10,7 +10,7 @@ import {
   Youtube,
   ArrowUpRight,
 } from "lucide-react";
-import { FOOTER_LINKS, SOCIAL_LINKS, type SocialLink, type SocialIconId } from "@/lib/constants";
+import { FOOTER_LEGAL_LINKS, FOOTER_LINKS, SOCIAL_LINKS, type SocialLink, type SocialIconId } from "@/lib/constants";
 import { SnapchatBrandIcon, TikTokBrandIcon, XBrandIcon } from "@/components/social-brand-icons";
 import Button from "./ui/Button";
 import ArrowUp from "@/icons/ArrowUp";
@@ -305,6 +305,21 @@ export function Footer() {
                   key={link.href}
                   href={link.href}
                   className="text-sm text-gray-400 hover:text-white transition-colors"
+                >
+                  {getFooterNavLabel(link.labelKey)}
+                </LocalizedLink>
+              ))}
+            </nav>
+
+            <nav
+              aria-label={locale === "ar" ? "قانوني" : "Legal"}
+              className="flex flex-wrap justify-center gap-4 md:gap-6"
+            >
+              {FOOTER_LEGAL_LINKS.map((link) => (
+                <LocalizedLink
+                  key={link.href}
+                  href={link.href}
+                  className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
                 >
                   {getFooterNavLabel(link.labelKey)}
                 </LocalizedLink>

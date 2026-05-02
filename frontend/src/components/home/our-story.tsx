@@ -55,7 +55,7 @@ export function OurStory({
   }, [isOurStoryViewed]);
 
   return (
-    <section className="py-20 px-4 md:px-8">
+    <section className="pt-[50px] pb-0 md:pb-20 px-4 md:px-8">
       {/* Badge */}
       <div className="md:text-center mb-8">
         <Badge>{badge}</Badge>
@@ -73,31 +73,31 @@ export function OurStory({
         {tagline}
       </p>
 
-      {/* Stats */}
-      <div className="w-full grid grid-cols-1 px-9 md:grid-cols-3 gap-8 md:gap-12">
-        <div className="flex flex-col gap-2 md:border-l md:pl-8 border-gray-200 first:border-0 first:pl-0">
-          <span className="text-5xl md:text-6xl font-bold text-[#00CFCF] wix-font">
+      {/* Stats — one row on all breakpoints; type scales down on narrow screens */}
+      <div className="w-full grid min-w-0 grid-cols-3 gap-2 sm:gap-4 md:gap-12 px-1 sm:px-4 md:px-9">
+        <div className="flex min-w-0 flex-col gap-1 sm:gap-2 border-l border-gray-200 pl-2 sm:pl-3 md:pl-8 first:border-0 first:pl-0 text-center md:text-left">
+          <span className="text-2xl sm:text-4xl md:text-6xl font-bold text-[#00CFCF] wix-font leading-none tabular-nums">
             {yearsVal}
           </span>
-          <span className="text-gray-900 font-medium text-lg">
+          <span className="text-gray-900 font-medium text-xs sm:text-sm md:text-lg leading-snug">
             {yearsLabel}
           </span>
         </div>
 
-        <div className="flex flex-col gap-2 md:border-l md:pl-8 border-gray-200">
-          <span className="text-5xl md:text-6xl font-bold text-[#00CFCF] wix-font">
+        <div className="flex min-w-0 flex-col gap-1 sm:gap-2 border-l border-gray-200 pl-2 sm:pl-3 md:pl-8 text-center md:text-left">
+          <span className="text-2xl sm:text-4xl md:text-6xl font-bold text-[#00CFCF] wix-font leading-none tabular-nums">
             {employeesVal}
           </span>
-          <span className="text-gray-900 font-medium text-lg">
+          <span className="text-gray-900 font-medium text-xs sm:text-sm md:text-lg leading-snug">
             {employeesLabel}
           </span>
         </div>
 
-        <div className="flex flex-col gap-2 md:border-l md:pl-8 border-gray-200">
-          <span className="text-5xl md:text-6xl font-bold text-[#00CFCF] wix-font">
+        <div className="flex min-w-0 flex-col gap-1 sm:gap-2 border-l border-gray-200 pl-2 sm:pl-3 md:pl-8 text-center md:text-left">
+          <span className="text-2xl sm:text-4xl md:text-6xl font-bold text-[#00CFCF] wix-font leading-none tabular-nums">
             {productsVal}
           </span>
-          <span className="text-gray-900 font-medium text-lg">
+          <span className="text-gray-900 font-medium text-xs sm:text-sm md:text-lg leading-snug">
             {productsLabel}
           </span>
         </div>
